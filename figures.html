@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <title>Ye Zhang - Figure Library</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- 基本描述 & SEO -->
+  <meta name="description"
+        content="Curated gallery of scientific figures collected by Ye Zhang — Nature / Science papers, top computer vision conferences, and multimodal modeling pipelines in computational pathology and multi-omics." />
+
+  <!-- Open Graph / 分享卡片 -->
+  <meta property="og:title" content="Ye Zhang - Figure Library" />
+  <meta property="og:description"
+        content="Visual library of figures and pipelines from Nature, Science, CVPR, NeurIPS, ICCV, and more — focused on computational pathology, nuclei segmentation, and multimodal models." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://zhangye-zoe.github.io/figures.html" />
+  <!-- 建议放一张 1200x630 左右的横版预览图 -->
+  <meta property="og:image" content="https://zhangye-zoe.github.io/images/share-default.png" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ye Zhang - Figure Library" />
+  <meta name="twitter:description"
+        content="Curated gallery of figures for computational pathology, multi-omics integration, and top-conference models." />
+  <meta name="twitter:image" content="https://zhangye-zoe.github.io/images/share-default.png" />
+
+  <!-- 字体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- 样式 -->
+  <link rel="stylesheet" href="figure-gallery.css" />
+
+  <!-- favicon -->
+  <link rel="icon" type="image/png" href="images/icons/ye.png" />
+</head>
+<body>
+
+<div class="app-shell">
+  <!-- 左侧：信息 + 视图切换 + 过滤 + 缩略图 -->
+  <aside class="sidebar" aria-label="Figure navigation">
+    <div class="sidebar-header">
+      <div class="sidebar-logo" aria-hidden="true">
+        <img src="images/icons/Yee.png" alt="Ye Zhang avatar" />
+      </div>
+
+      <div>
+        <div class="sidebar-title">Figure Library</div>
+        <div class="sidebar-subtitle">
+          - A little better every day.
+        </div>
+
+        <div class="sidebar-motto">
+          <div>愿这个世界不再有癌症。</div>
+          <div>May there be a world without cancer.</div>
+          <div>باشد که جهانی بدون سرطان وجود داشته باشد.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-group-divider"></div>
+
+    <!-- 视图切换：按期刊/会议 vs 按研究领域 -->
+    <div class="view-toggle" role="tablist" aria-label="View mode">
+      <button class="view-toggle-btn active" data-view="venue" type="button">
+        By venue
+      </button>
+      <button class="view-toggle-btn" data-view="topic" type="button">
+        By topic
+      </button>
+    </div>
+
+    <!-- 新增：目录区域（自动生成，比如 All / Nature / CVPR / NeurIPS ...） -->
+    <div class="category-wrapper">
+      <div class="category-label">Directory</div>
+      <div class="category-list" id="categoryList">
+        <!-- JS 会自动根据 data-venue / data-topic 填充 -->
+      </div>
+    </div>
+
+    <!-- 缩略图列表：只显示当前目录下的图 -->
+    <div class="sidebar-list" id="thumbList">
+      <div class="section-label">Figures</div>
+
+      <!-- 保持你原来的 thumb-item 列表结构即可 -->
+      <div class="thumb-item"
+           data-full="images/Multivulo-Fig1.png"
+           data-title="Nature 2023 · Tumor microenvironment map"
+           data-meta="Nature · Fig. 3 · Spatial organization of tumor microenvironment"
+           data-tag-primary="Nature"
+           data-tag-secondary="Tumor microenvironment"
+           data-venue="Nature"
+           data-topic="Spatial transcriptomics"
+           data-id="nature-2023-tme-fig3">
+        <div class="thumb-image-wrap">
+          <img src="images/Multivulo-Fig1.png" alt="Nature 2023 TME atlas" loading="lazy">
+        </div>
+        <div class="thumb-meta">
+          <div class="thumb-title">Nature 2023 · TME atlas</div>
+          <div class="thumb-desc">Spatial niches and cell–cell interactions</div>
+        </div>
+        <span class="thumb-badge">Fig 3</span>
+      </div>
+
+      <div class="thumb-item"
+           data-full="images/example2_large.jpg"
+           data-title="CVPR 2024 · Multi-scale vision pipeline"
+           data-meta="CVPR · Fig. 2 · Model architecture for multi-scale visual reasoning"
+           data-tag-primary="CVPR"
+           data-tag-secondary="Pipeline"
+           data-venue="CVPR"
+           data-topic="Computer vision"
+           data-id="cvpr-2024-multiscale-pipeline">
+        <div class="thumb-image-wrap">
+          <img src="images/example2_thumb.jpg" alt="CVPR 2024 pipeline" loading="lazy">
+        </div>
+        <div class="thumb-meta">
+          <div class="thumb-title">CVPR 2024 · Pipeline</div>
+          <div class="thumb-desc">Multi-scale CNN + Transformer</div>
+        </div>
+        <span class="thumb-badge">Fig 2</span>
+      </div>
+
+      <div class="thumb-item"
+           data-full="images/example3_large.jpg"
+           data-title="NeurIPS 2022 · Training dynamics"
+           data-meta="NeurIPS · Fig. 4 · Optimization landscape and training dynamics"
+           data-tag-primary="NeurIPS"
+           data-tag-secondary="Optimization"
+           data-venue="NeurIPS"
+           data-topic="Optimization / training"
+           data-id="neurips-2022-training-dynamics">
+        <div class="thumb-image-wrap">
+          <img src="images/example3_thumb.jpg" alt="NeurIPS 2022 training" loading="lazy">
+        </div>
+        <div class="thumb-meta">
+          <div class="thumb-title">NeurIPS 2022 · Training</div>
+          <div class="thumb-desc">Loss landscape and convergence behavior</div>
+        </div>
+        <span class="thumb-badge">Fig 4</span>
+      </div>
+
+      <!-- 继续按这个结构加就行 -->
+    </div>
+
+    <!-- 侧边栏 footer -->
+    <div class="sidebar-footer" aria-label="Site footer">
+      <div class="footer-line">© 2026 Ye Zhang</div>
+      <div class="footer-line">Curated figure library · Hosted on GitHub Pages</div>
+    </div>
+  </aside>
+
+
+  <!-- 右侧：大图 + notes -->
+  <section class="viewer">
+    <header class="viewer-header">
+      <div class="viewer-title-block">
+        <h2 class="viewer-title" id="viewerTitle">Select a figure</h2>
+        <p class="viewer-subline" id="viewerMeta">
+          Click a thumbnail on the left, or use ← / → to navigate.
+        </p>
+      </div>
+      <div class="viewer-progress" id="viewerProgress">
+        0 / 0
+      </div>
+    </header>
+
+    <div class="viewer-main">
+      <div class="viewer-card">
+        <div class="viewer-tag-row">
+          <span class="viewer-tag" id="tagPrimary">—</span>
+          <span class="viewer-tag secondary" id="tagSecondary">—</span>
+        </div>
+
+        <div class="viewer-image-frame">
+          <img id="mainImage" src="" alt="">
+          <div class="nav-arrows">
+            <button class="nav-btn" id="prevBtn" title="Previous (←)" type="button">
+              &#8592;
+            </button>
+            <button class="nav-btn" id="nextBtn" title="Next (→)" type="button">
+              &#8594;
+            </button>
+          </div>
+        </div>
+
+        <!-- 笔记区域：每张图单独一块（本页内记忆） -->
+        <div class="notes-block">
+          <div class="notes-header">
+            <span class="notes-title">Notes for this figure</span>
+            <span class="notes-hint">(not saved after refresh)</span>
+          </div>
+          <textarea id="figureNotes"
+                    placeholder="Key ideas, experimental setup, caveats, or how this connects to your own work..."></textarea>
+        </div>
+      </div>
+
+      <div class="viewer-footer">
+        <span>
+          Tip: Use <strong>←</strong> / <strong>→</strong> to flip through filtered figures.
+        </span>
+        <span>
+          You can read the paper by <a href="#">paper links</a>.
+        </span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- 脚本 -->
+<script src="figure-gallery.js" defer></script>
+</body>
+</html>
