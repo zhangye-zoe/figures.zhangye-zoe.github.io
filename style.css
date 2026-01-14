@@ -151,17 +151,16 @@ body {
   background: transparent;
   box-shadow: none;
 
-  justify-content: center; /* 让按钮在水平方向居中 */
-  width: 100%;             /* 占满这一行，居中更稳定 */
+  justify-content: center;
+  width: 100%;
 }
-
 
 /* 按钮本身做成小胶囊，文字更小 */
 .view-toggle-btn {
   flex: 0 0 auto;
-  min-width: 110px;              /* 让按钮本身更宽一些 */
+  min-width: 110px;
   font-size: 11px;
-  padding: 4px 18px;             /* 水平 padding 变大，外框更长 */
+  padding: 4px 18px;
   text-align: center;
 
   border-radius: 999px;
@@ -176,15 +175,13 @@ body {
     transform 0.12s ease-out;
 }
 
-
-
 .view-toggle-btn:hover {
   transform: translateY(-1px);
   border-color: rgba(191, 219, 254, 0.7);
   background: rgba(15, 23, 42, 0.9);
 }
 
-/* 选中的状态，用细一点的高亮，不再像一个整块卡片 */
+/* 选中的状态 */
 .view-toggle-btn.active {
   background: linear-gradient(
     135deg,
@@ -195,8 +192,7 @@ body {
   border-color: rgba(191, 219, 254, 0.95);
 }
 
-
-/* Directory 外层：改用分割线风格，而不是大卡片 */
+/* Directory 外层 */
 .category-wrapper {
   margin: 4px 12px 10px;
   padding: 6px 2px 0;
@@ -207,20 +203,7 @@ body {
   position: relative;
 }
 
-/* 顶部渐变分割线 */
-. {
-  content: "";
-  display: block;
-  height: 1px;
-  margin-bottom: 6px;
-  border-radius: 999px;
-  background: linear-gradient(
-    to right,
-    rgba(248, 250, 252, 0.1),
-    rgba(96, 165, 250, 0.9),
-    rgba(15, 23, 42, 0.1)
-  );
-}
+/* 这里原本有 ::before 渐变分割线，已去掉以便和上方按钮连成一体 */
 
 /* Directory 标题 */
 .category-label {
@@ -243,6 +226,15 @@ body {
   box-shadow: 0 0 8px rgba(96, 165, 250, 0.9);
 }
 
+/* Directory 列表区域 */
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  max-height: 230px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
 
 /* 顶层 venue/topic 项 */
 .category-item {
