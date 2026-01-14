@@ -124,39 +124,39 @@ document.addEventListener("DOMContentLoaded", () => {
     "Misc"
   ]);
 
-  /* === localStorage: notes 持久化 === */
-  const STORAGE_KEY = "ye_figure_notes_v1";
+  /* === localStorage: notes 持久化（按 figure id 存） === */
+  const NOTES_KEY = "ye_figure_notes_v2";
 
-  function loadNotesStore() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return new Map();
-      const obj = JSON.parse(raw);
-      const map = new Map();
-      Object.entries(obj).forEach(([k, v]) => map.set(k, v));
-      return map;
-    } catch (e) {
-      console.warn("Failed to load notes from storage", e);
-      return new Map();
+  // 从 localStorage 读出：形如 { "multivelo-fig1": "xxxx", ... }
+  let notesStore = {};
+  try {
+    const raw = localStorage.getItem(NOTES_KEY);
+    if (raw) {
+      notesStore = JSON.parse(raw);
     }
+  } catch (e) {
+    console.warn("Failed to load notes from storage", e);
+    notesStore = {};
   }
 
-  function saveNotesStore() {
-    try {
-      const obj = Object.fromEntries(notesStore.entries());
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
-    } catch (e) {
-      console.warn("Failed to save notes to storage", e);
-    }
-  }
-
-  const notesStore = loadNotesStore();
-
+  // 当前缩略图 index 对应的 key（优先用 data-id）
   function getKeyForIndex(index) {
     const item = thumbItems[index];
     if (!item) return String(index);
     const id = item.getAttribute("data-id");
     return id || String(index);
+  }
+
+  // 保存当前 figure 的 notes
+  function saveCurrentNote() {
+    if (currentIndex < 0) return;
+    const key = getKeyForIndex(currentIndex);
+    notesStore[key] = notesTextarea.value || "";
+    try {
+      localStorage.setItem(NOTES_KEY, JSON.stringify(notesStore));
+    } catch (e) {
+      console.warn("Failed to save notes to storage", e);
+    }
   }
 
   function getVisibleItems() {
@@ -443,8 +443,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     currentIndex = index;
 
+    // 加载对应 note
     const key = getKeyForIndex(index);
-    notesTextarea.value = notesStore.get(key) || "";
+    notesTextarea.value = notesStore[key] || "";
 
     if (scrollIntoView) {
       item.scrollIntoView({
@@ -497,11 +498,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // 输入时实时保存当前 figure 的 note
   notesTextarea.addEventListener("input", () => {
-    if (currentIndex < 0) return;
-    const key = getKeyForIndex(currentIndex);
-    notesStore.set(key, notesTextarea.value);
-    saveNotesStore();
+    saveCurrentNote();
   });
 
   /* ========== 8. 目录构建 & 状态 ========= */
