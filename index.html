@@ -70,7 +70,7 @@
       </button>
     </div>
 
-    <!-- 目录标题：All venues / All topics（只是标题，没有“全部”按钮） -->
+    <!-- 目录标题：All venues / All topics -->
     <div class="category-header">
       <div class="category-main-title" id="categoryMainTitle">All venues</div>
     </div>
@@ -148,21 +148,21 @@
           </div>
         </div>
 
+        <!-- 图展示框 -->
         <div class="viewer-image-frame mode-click" id="imageFrame">
           <img id="mainImage" src="" alt="">
           <div class="magnifier-lens" id="magnifierLens" aria-hidden="true"></div>
+
+          <!-- 悬浮箭头：放在图展示框内部，垂直居中、水平靠右 -->
+          <div class="nav-arrows">
+            <button class="nav-btn" id="prevBtn" title="Previous (←)" type="button">
+              &#8592;
+            </button>
+            <button class="nav-btn" id="nextBtn" title="Next (→)" type="button">
+              &#8594;
+            </button>
+          </div>
         </div>
-        
-        <!-- 悬浮箭头：放在 viewer-card 里、imageFrame 外 -->
-        <div class="nav-arrows">
-          <button class="nav-btn" id="prevBtn" title="Previous (←)" type="button">
-            &#8592;
-          </button>
-          <button class="nav-btn" id="nextBtn" title="Next (→)" type="button">
-            &#8594;
-          </button>
-        </div>
-        
 
         <!-- 笔记区域 -->
         <div class="notes-block">

@@ -192,7 +192,7 @@ window.figureList = [
       tagPrimary: "Nature Methods",
       tagSecondary: "Model overview",
       titleShort: "Fig 1 · Framework overview",
-      titleFull: "2026 · Squidiff: predicting cellular development and responses to perturbations using a diffusion model framework and synthetic data",
+      titleFull: "Fig 1 · Squidiff architecture and synthetic demonstration",
       meta: "Nature Methods · Fig. 1 · Overview of Squidiff architecture and synthetic demonstration of latent diffusion and interpolation.",
       desc: "Waddington landscape, semantic encoder + conditional DDIM, latent diffusion and interpolation on synthetic cell types.",
       paperId: "natmethods-2026-squidiff",
