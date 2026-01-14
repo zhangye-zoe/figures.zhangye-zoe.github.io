@@ -28,13 +28,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: stretch;
-  padding-top: 40px;
+  padding-top: 32px;
 }
 
 /* ============ App Layout ============ */
 .app-shell {
   display: flex;
-  width: min(1800px, 100vw);
+  width: min(1400px, 100vw); /* 外框窄一点 */
   height: auto;
   margin: 0 auto 20px;
   border-radius: 28px;
@@ -47,7 +47,6 @@ body {
   box-shadow: var(--shadow-soft);
   backdrop-filter: blur(22px);
 
-  /* 允许拖拽调整整体宽高（桌面端） */
   resize: both;
   overflow: auto;
   max-width: 100vw;
@@ -138,24 +137,23 @@ body {
   );
 }
 
-/* ============ View Toggle + Directory ============ */
+/* ============ View Toggle + Directory Title ============ */
 
-/* 顶部视图切换：做成小标签，和 Directory 融在一起 */
+/* 顶部视图切换：做成小标签 */
 .view-toggle {
   display: flex;
   gap: 40px;
-  padding: 0 20px 10px;
+  padding: 0 20px 6px;
   margin: 10px 0 0;
   border: none;
   border-radius: 0;
   background: transparent;
   box-shadow: none;
-
   justify-content: center;
   width: 100%;
 }
 
-/* 按钮本身做成小胶囊，文字更小 */
+/* 切换按钮 */
 .view-toggle-btn {
   flex: 0 0 auto;
   min-width: 110px;
@@ -181,7 +179,6 @@ body {
   background: rgba(15, 23, 42, 0.9);
 }
 
-/* 选中的状态 */
 .view-toggle-btn.active {
   background: linear-gradient(
     135deg,
@@ -192,56 +189,62 @@ body {
   border-color: rgba(191, 219, 254, 0.95);
 }
 
-/* Directory 外层 */
-.category-wrapper {
-  margin: 4px 12px 10px;
-  padding: 6px 2px 0;
-  border: none;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-  position: relative;
+/* 顶部目录标题：All venues / All topics */
+.category-header {
+  padding: 6px 18px 4px;
 }
 
-/* 这里原本有 ::before 渐变分割线，已去掉以便和上方按钮连成一体 */
-
-/* Directory 标题 */
-.category-label {
-  display: flex;
+.category-main-title {
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: rgba(191, 219, 254, 0.95);
-  margin-bottom: 6px;
+  letter-spacing: 0.16em;
+  color: rgba(191, 219, 254, 0.78);
+  cursor: pointer;
+  user-select: none;
 }
 
-.category-label::before {
+/* 小圆点 */
+.category-main-title::before {
   content: "";
   width: 6px;
   height: 6px;
   border-radius: 999px;
   background: #60a5fa;
-  box-shadow: 0 0 8px rgba(96, 165, 250, 0.9);
+  box-shadow: 0 0 8px rgba(96, 165, 250, 0.8);
 }
 
-/* Directory 列表区域 */
+/* hover 有一点点亮，但不要像子目录那样整块高亮 */
+.category-main-title:hover {
+  color: rgba(226, 232, 240, 0.96);
+}
+
+/* 选中 All 时的状态：稍微加粗 + 更亮，但仍然保持「标题感」 */
+.category-main-title.active {
+  color: #e5e7eb;
+  font-weight: 500;
+}
+
+/* ============ Directory List ============ */
+
+/* 目录列表区域（整体行距缩小版） */
 .category-list {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;              /* 行距稍微缩小 */
   max-height: 230px;
   overflow-y: auto;
-  padding-right: 4px;
+  padding: 0 16px 0 16px;
 }
 
-/* 顶层 venue/topic 项 */
+/* 顶层 venue/topic 项（瘦一点） */
 .category-item {
   width: 100%;
   text-align: left;
   font-size: 13px;
-  padding: 5px 9px;
+  padding: 4px 9px;      /* 比原来更薄一点 */
   border-radius: 9px;
   border: 1px solid transparent;
   background: rgba(15, 23, 42, 0.2);
@@ -308,22 +311,22 @@ body {
 /* 顶层标题：Venue / Topic 名 */
 .category-title {
   font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0.1em;
   color: rgba(239, 246, 255, 0.96);
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* 论文列表：缩进 + 左侧竖线 */
+/* 论文列表：缩进 + 左侧竖线（行距缩小版） */
 .paper-list {
-  margin: 2px 0 4px 16px;
+  margin: 1px 0 3px 16px;
   padding-left: 8px;
   border-left: 1px solid rgba(37, 99, 235, 0.65);
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;              /* 子项之间也略缩紧 */
 }
 
 /* 子标题：paper 名称，最多两行 */
@@ -337,12 +340,12 @@ body {
   -webkit-box-orient: vertical;
 }
 
-/* 单条论文项 */
+/* 单条论文项（瘦一点） */
 .paper-item {
   width: 100%;
   text-align: left;
   font-size: 12px;
-  padding: 3px 8px;
+  padding: 2px 8px;      /* 从 3px 改成 2px */
   border-radius: 8px;
   border: 1px solid transparent;
   background: rgba(15, 23, 42, 0.45);
@@ -603,9 +606,12 @@ body {
   gap: 10px;
 }
 
+/* 右侧卡片变窄，居中放在 viewer 区域内 */
 .viewer-card {
   flex: 1;
   min-height: 0;
+  max-width: 860px;  /* 右侧展示区宽度收窄 */
+  margin: 0 auto;
   border-radius: 20px;
   background: #f9fafb;
   box-shadow: 0 22px 50px rgba(15, 23, 42, 0.4);
@@ -631,7 +637,7 @@ body {
   gap: 4px;
 }
 
-/* 标签行稍微靠左一点，别太孤单 */
+/* 标签行 */
 .viewer-tag-row {
   display: inline-flex;
   gap: 8px;
@@ -654,7 +660,7 @@ body {
   border-color: #ddd6fe;
 }
 
-/* 标签下面的小说明文字，填充空白 */
+/* 标签下面的小说明文字 */
 .tag-caption {
   font-size: 11px;
   color: #9ca3af;
@@ -771,15 +777,15 @@ body {
   border: 1px solid #e5e7eb;
   padding: 10px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: center;     /* 水平居中 */
+  align-items: flex-start;     /* 竖直顶端对齐 */
   position: relative;
-  overflow: auto; /* 支持放大后滚动 */
+  overflow: auto;              /* 支持放大后滚动 */
 }
 
 .viewer-image-frame img {
   max-width: 100%;
-  max-height: 100%;
+  max-height: 80vh;
   border-radius: 12px;
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.3);
   display: block;
@@ -819,38 +825,48 @@ body {
   mix-blend-mode: normal;
 }
 
-/* Nav arrows */
+/* 悬浮在大图上的左右箭头 */
 .nav-arrows {
   position: absolute;
-  right: 16px;
-  bottom: 16px;
+  right: 20px;
+  bottom: 24px;
   display: flex;
   gap: 8px;
+  z-index: 10;
+  pointer-events: none;        /* 容器不吃事件，只让按钮吃 */
 }
 
 .nav-btn {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 999px;
-  border: 1px solid rgba(15, 23, 42, 0.85);
-  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(15, 23, 42, 0.7);
+  background: rgba(15, 23, 42, 0.45);   /* 半透明深色玻璃效果 */
   color: #e5e7eb;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   font-size: 16px;
-  transition: background 0.12s ease-out, transform 0.12s ease-out;
+  pointer-events: auto;        /* 按钮本身可以点 */
+  backdrop-filter: blur(8px);  /* 玻璃磨砂感（支持的浏览器会显示） */
+  transition:
+    background 0.15s ease-out,
+    transform 0.12s ease-out,
+    box-shadow 0.15s ease-out;
 }
 
 .nav-btn:hover {
-  background: #1d4ed8;
+  background: rgba(37, 99, 235, 0.85);
   transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.4);
 }
 
 .nav-btn:active {
   transform: translateY(0);
+  box-shadow: none;
 }
+
 
 /* Notes block */
 .notes-block {
@@ -954,5 +970,9 @@ body {
 
   .viewer {
     height: calc(100vh - 260px - 40px);
+  }
+
+  .viewer-card {
+    max-width: 100%;
   }
 }

@@ -16,7 +16,6 @@
         content="Visual library of figures and pipelines from Nature, Science, CVPR, NeurIPS, ICCV, and more — focused on computational pathology, nuclei segmentation, and multimodal models." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://zhangye-zoe.github.io/figures.html" />
-  <!-- 建议放一张 1200x630 左右的横版预览图 -->
   <meta property="og:image" content="https://zhangye-zoe.github.io/images/share-default.png" />
 
   <!-- Twitter / X -->
@@ -29,11 +28,11 @@
   <!-- 字体 -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- 样式 -->
-  <link rel="stylesheet" href="style.css" />
-
   <!-- favicon -->
   <link rel="icon" type="image/png" href="images/icons/ye.png" />
+
+  <!-- 样式 -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -71,81 +70,18 @@
       </button>
     </div>
 
-    <!-- 目录区域：由 JS 动态生成 -->
-    <div class="category-wrapper">
-      <div class="category-label">Directory</div>
-      <div class="category-list" id="categoryList"></div>
+    <!-- 目录标题：All venues / All topics（只是标题，没有“全部”按钮） -->
+    <div class="category-header">
+      <div class="category-main-title" id="categoryMainTitle">All venues</div>
     </div>
 
-    <!-- 缩略图列表：只显示当前过滤下的图 -->
+    <!-- 目录列表 -->
+    <div class="category-list" id="categoryList"></div>
+
+    <!-- 缩略图列表 -->
     <div class="sidebar-list" id="thumbList">
       <div class="section-label">Figures</div>
-
-      <!-- 示例 1：Nature -->
-      <div class="thumb-item"
-           data-full="images/Multivulo-Fig1.png"
-           data-title="Nature 2023 · Tumor microenvironment map"
-           data-meta="Nature · Fig. 3 · Spatial organization of tumor microenvironment"
-           data-tag-primary="Nature"
-           data-tag-secondary="Tumor microenvironment"
-           data-venue="Nature"
-           data-topic="Spatial transcriptomics"
-           data-id="nature-2023-tme-fig3"
-           data-paper="nature-2023-multivelo"
-           data-paper-title="Nature 2023 · MultiVelo tumor microenvironment atlas">
-        <div class="thumb-image-wrap">
-          <img src="images/Multivulo-Fig1.png" alt="Nature 2023 TME atlas" loading="lazy">
-        </div>
-        <div class="thumb-meta">
-          <div class="thumb-title">Nature 2023 · TME atlas</div>
-          <div class="thumb-desc">Spatial niches and cell–cell interactions</div>
-        </div>
-        <span class="thumb-badge">Fig 3</span>
-      </div>
-
-      <!-- 示例 2：CVPR -->
-      <div class="thumb-item"
-           data-full="images/example2_large.jpg"
-           data-title="CVPR 2024 · Multi-scale vision pipeline"
-           data-meta="CVPR · Fig. 2 · Model architecture for multi-scale visual reasoning"
-           data-tag-primary="CVPR"
-           data-tag-secondary="Pipeline"
-           data-venue="CVPR"
-           data-topic="Computer vision"
-           data-id="cvpr-2024-multiscale-pipeline"
-           data-paper="cvpr-2024-multiscale"
-           data-paper-title="CVPR 2024 · Multi-scale vision pipeline">
-        <div class="thumb-image-wrap">
-          <img src="images/example2_thumb.jpg" alt="CVPR 2024 pipeline" loading="lazy">
-        </div>
-        <div class="thumb-meta">
-          <div class="thumb-title">CVPR 2024 · Pipeline</div>
-          <div class="thumb-desc">Multi-scale CNN + Transformer</div>
-        </div>
-        <span class="thumb-badge">Fig 2</span>
-      </div>
-
-      <!-- 示例 3：NeurIPS -->
-      <div class="thumb-item"
-           data-full="images/example3_large.jpg"
-           data-title="NeurIPS 2022 · Training dynamics"
-           data-meta="NeurIPS · Fig. 4 · Optimization landscape and training dynamics"
-           data-tag-primary="NeurIPS"
-           data-tag-secondary="Optimization"
-           data-venue="NeurIPS"
-           data-topic="Optimization / training"
-           data-id="neurips-2022-training-dynamics"
-           data-paper="neurips-2022-training"
-           data-paper-title="NeurIPS 2022 · Training dynamics">
-        <div class="thumb-image-wrap">
-          <img src="images/example3_thumb.jpg" alt="NeurIPS 2022 training" loading="lazy">
-        </div>
-        <div class="thumb-meta">
-          <div class="thumb-title">NeurIPS 2022 · Training</div>
-          <div class="thumb-desc">Loss landscape and convergence behavior</div>
-        </div>
-        <span class="thumb-badge">Fig 4</span>
-      </div>
+      <!-- 缩略图由 JS 注入 -->
     </div>
 
     <!-- 侧边栏 footer -->
@@ -198,25 +134,13 @@
             <div class="mode-switch">
               <span class="mode-label">Interaction</span>
               <div class="mode-pill-group">
-                <button
-                  class="mode-btn active"
-                  type="button"
-                  data-mode="click"
-                >
+                <button class="mode-btn active" type="button" data-mode="click">
                   Click
                 </button>
-                <button
-                  class="mode-btn"
-                  type="button"
-                  data-mode="zoom"
-                >
+                <button class="mode-btn" type="button" data-mode="zoom">
                   Zoom
                 </button>
-                <button
-                  class="mode-btn"
-                  type="button"
-                  data-mode="drag"
-                >
+                <button class="mode-btn" type="button" data-mode="drag">
                   Drag
                 </button>
               </div>
@@ -227,15 +151,18 @@
         <div class="viewer-image-frame mode-click" id="imageFrame">
           <img id="mainImage" src="" alt="">
           <div class="magnifier-lens" id="magnifierLens" aria-hidden="true"></div>
-          <div class="nav-arrows">
-            <button class="nav-btn" id="prevBtn" title="Previous (←)" type="button">
-              &#8592;
-            </button>
-            <button class="nav-btn" id="nextBtn" title="Next (→)" type="button">
-              &#8594;
-            </button>
-          </div>
         </div>
+        
+        <!-- 悬浮箭头：放在 viewer-card 里、imageFrame 外 -->
+        <div class="nav-arrows">
+          <button class="nav-btn" id="prevBtn" title="Previous (←)" type="button">
+            &#8592;
+          </button>
+          <button class="nav-btn" id="nextBtn" title="Next (→)" type="button">
+            &#8594;
+          </button>
+        </div>
+        
 
         <!-- 笔记区域 -->
         <div class="notes-block">
@@ -260,7 +187,9 @@
   </section>
 </div>
 
-<!-- 脚本 -->
-<script src="main.js" defer></script>
+<!-- 数据：window.figureList = [...] -->
+<script src="data.js"></script>
+<!-- 交互逻辑（包括自动生成缩略图 + 目录） -->
+<script src="main.js"></script>
 </body>
 </html>

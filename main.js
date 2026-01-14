@@ -1,42 +1,128 @@
 document.addEventListener("DOMContentLoaded", () => {
+  /* ========== 1. 根据 window.figureList 生成缩略图 ========== */
+  const thumbListContainer = document.getElementById("thumbList");
+  if (thumbListContainer && window.figureList && window.figureList.length) {
+    const frag = document.createDocumentFragment();
+
+    window.figureList.forEach((fig) => {
+      const item = document.createElement("div");
+      item.className = "thumb-item";
+
+      // 基础属性
+      item.setAttribute("data-full", fig.file);
+      item.setAttribute("data-title", fig.titleFull || "Figure");
+      item.setAttribute("data-meta", fig.meta || "");
+      item.setAttribute("data-tag-primary", fig.tagPrimary || "");
+      item.setAttribute("data-tag-secondary", fig.tagSecondary || "");
+      item.setAttribute("data-venue", fig.venue || "");
+      item.setAttribute("data-topic", fig.topic || "");
+      item.setAttribute("data-id", fig.id || "");
+
+      // paper 相关：尽量兼容不同字段
+      const paperId =
+        fig.paperId ||
+        fig.paper_id ||
+        fig.paperKey ||
+        fig.paper ||
+        "";
+      const paperTitle =
+        fig.paperTitle ||
+        fig.paper_title ||
+        fig.paperName ||
+        fig.paper ||
+        "";
+
+      if (paperId) {
+        item.setAttribute("data-paper", paperId);
+      }
+      if (paperTitle) {
+        item.setAttribute("data-paper-title", paperTitle);
+      }
+
+      // 缩略图
+      const imgWrap = document.createElement("div");
+      imgWrap.className = "thumb-image-wrap";
+      const img = document.createElement("img");
+      img.src = fig.file;
+      img.alt = fig.titleShort || fig.titleFull || "Figure";
+      img.loading = "lazy";
+      imgWrap.appendChild(img);
+      item.appendChild(imgWrap);
+
+      // 文本信息
+      const metaWrap = document.createElement("div");
+      metaWrap.className = "thumb-meta";
+
+      const titleDiv = document.createElement("div");
+      titleDiv.className = "thumb-title";
+      titleDiv.textContent = fig.titleShort || fig.titleFull || "Figure";
+      metaWrap.appendChild(titleDiv);
+
+      const descDiv = document.createElement("div");
+      descDiv.className = "thumb-desc";
+      descDiv.textContent = fig.desc || "";
+      metaWrap.appendChild(descDiv);
+
+      item.appendChild(metaWrap);
+
+      if (fig.badge) {
+        const badge = document.createElement("span");
+        badge.className = "thumb-badge";
+        badge.textContent = fig.badge;
+        item.appendChild(badge);
+      }
+
+      frag.appendChild(item);
+    });
+
+    thumbListContainer.appendChild(frag);
+  }
+
   const thumbItems = Array.from(document.querySelectorAll(".thumb-item"));
 
+  /* ========== 2. 基本 DOM 引用 ========== */
   const mainImage = document.getElementById("mainImage");
   const viewerTitle = document.getElementById("viewerTitle");
   const viewerMeta = document.getElementById("viewerMeta");
   const viewerProgress = document.getElementById("viewerProgress");
   const tagPrimary = document.getElementById("tagPrimary");
   const tagSecondary = document.getElementById("tagSecondary");
+  const notesTextarea = document.getElementById("figureNotes");
+
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
-  const notesTextarea = document.getElementById("figureNotes");
 
   const viewToggleButtons = document.querySelectorAll(".view-toggle-btn");
   const categoryListEl = document.getElementById("categoryList");
+  const categoryMainTitle = document.getElementById("categoryMainTitle");
 
   const appShell = document.querySelector(".app-shell");
   const sidebar = document.querySelector(".sidebar");
   const sidebarResizer = document.getElementById("sidebarResizer");
 
-  // 缩放 & 放大镜
   const zoomInBtn = document.getElementById("zoomInBtn");
   const zoomOutBtn = document.getElementById("zoomOutBtn");
   const zoomResetBtn = document.getElementById("zoomResetBtn");
   const imageFrame = document.getElementById("imageFrame");
   const magnifierLens = document.getElementById("magnifierLens");
 
-  // 交互模式按钮
   const modeButtons = document.querySelectorAll(".mode-btn");
 
-  // 模式：click | zoom | drag
+  /* ========== 3. 状态变量 ========== */
   let interactionMode = "click";
-
   let currentIndex = -1;
   let currentView = "venue";   // "venue" | "topic"
-  let activeCategory = "All";  // 顶层：venue 或 topic
-  let activePaper = "All";     // 第二层：paper key（只在 venue 视图有用）
+  let activeCategory = "All";  // 顶层过滤：venue/topic；"All" 表示不过滤
+  let activePaper = "All";     // venue 下 paper 过滤
 
-  const collapsedVenues = new Set(); // 哪些 venue 是折叠状态
+  // 不想当成研究领域的 topic
+  const TOPIC_EXCLUDE = new Set([
+    "Performance",
+    "Ablation",
+    "Evaluation",
+    "Others",
+    "Misc"
+  ]);
 
   /* === localStorage: notes 持久化 === */
   const STORAGE_KEY = "ye_figure_notes_v1";
@@ -47,9 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!raw) return new Map();
       const obj = JSON.parse(raw);
       const map = new Map();
-      Object.entries(obj).forEach(([k, v]) => {
-        map.set(k, v);
-      });
+      Object.entries(obj).forEach(([k, v]) => map.set(k, v));
       return map;
     } catch (e) {
       console.warn("Failed to load notes from storage", e);
@@ -79,13 +163,13 @@ document.addEventListener("DOMContentLoaded", () => {
     return thumbItems.filter((item) => item.style.display !== "none");
   }
 
-  /* ========== 图像缩放 & 放大镜 ========= */
+  /* ========== 4. 图像缩放 & 放大镜 ========= */
 
   let currentZoom = 1;
   const MIN_ZOOM = 0.5;
   const MAX_ZOOM = 4;
   const ZOOM_STEP = 0.25;
-  const LENS_SCALE = 2; // 放大镜倍率
+  const LENS_SCALE = 2;
 
   function applyZoom() {
     if (!mainImage) return;
@@ -106,9 +190,13 @@ document.addEventListener("DOMContentLoaded", () => {
   zoomResetBtn?.addEventListener("click", () => {
     currentZoom = 1;
     applyZoom();
+    // 重置滚动位置，避免图片顶部被「挡住」
+    if (imageFrame) {
+      imageFrame.scrollTop = 0;
+      imageFrame.scrollLeft = 0;
+    }
   });
 
-  // 图片加载完成后重新应用缩放 & 放大镜背景
   mainImage.addEventListener("load", () => {
     applyZoom();
   });
@@ -134,14 +222,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const lensHalfW = lensRect.width / 2;
     const lensHalfH = lensRect.height / 2;
 
-    // 限制 lens 在 frame 内部
     x = Math.max(lensHalfW, Math.min(frameRect.width - lensHalfW, x));
     y = Math.max(lensHalfH, Math.min(frameRect.height - lensHalfH, y));
 
     magnifierLens.style.left = `${x - lensHalfW}px`;
     magnifierLens.style.top = `${y - lensHalfH}px`;
 
-    // 计算相对于图片的位置比例
     const relX = (x - (imgRect.left - frameRect.left)) / imgRect.width;
     const relY = (y - (imgRect.top - frameRect.top)) / imgRect.height;
 
@@ -167,7 +253,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     imageFrame.addEventListener("mouseleave", () => {
       magnifierLens.style.display = "none";
-      // 退出区域时顺便结束拖拽
       isPanning = false;
       imageFrame.classList.remove("panning");
     });
@@ -176,11 +261,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (interactionMode === "zoom") {
         moveLens(e);
       }
-      // drag 模式的移动逻辑在全局 mousemove 里处理
     });
   }
 
-  /* ========== Drag 模式：按住左键拖拽平移 ========= */
+  /* ========== 5. Drag 模式：按住左键拖拽平移 ========= */
   let isPanning = false;
   let startX = 0;
   let startY = 0;
@@ -190,7 +274,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (imageFrame) {
     imageFrame.addEventListener("mousedown", (e) => {
       if (interactionMode !== "drag") return;
-      if (e.button !== 0) return; // 只响应左键
+      if (e.button !== 0) return;
 
       isPanning = true;
       imageFrame.classList.add("panning");
@@ -219,17 +303,14 @@ document.addEventListener("DOMContentLoaded", () => {
   function setInteractionMode(mode) {
     interactionMode = mode;
 
-    // 更新按钮 active 状态
     modeButtons.forEach((btn) => {
       btn.classList.toggle("active", btn.getAttribute("data-mode") === mode);
     });
 
-    // 更新图像区域的 mode class
     if (!imageFrame) return;
     imageFrame.classList.remove("mode-click", "mode-zoom", "mode-drag");
     imageFrame.classList.add(`mode-${mode}`);
 
-    // 切换模式时关掉放大镜
     if (magnifierLens) {
       magnifierLens.style.display = "none";
     }
@@ -237,7 +318,6 @@ document.addEventListener("DOMContentLoaded", () => {
     imageFrame.classList.remove("panning");
   }
 
-  // 模式按钮点击绑定
   modeButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const mode = btn.getAttribute("data-mode");
@@ -246,10 +326,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 初始化：默认 click 模式
   setInteractionMode("click");
 
-  /* ========== Sidebar 拖拽调整宽度 ========= */
+  /* ========== 6. Sidebar 拖拽调整宽度 ========= */
   let isResizingSidebar = false;
 
   sidebarResizer?.addEventListener("mousedown", (e) => {
@@ -275,13 +354,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  /* ========== 过滤 & 目录逻辑 ========= */
+  /* ========== 7. 过滤逻辑 ========= */
 
   function applyFilter() {
     thumbItems.forEach((item) => {
-      const venue = item.getAttribute("data-venue") || "";
-      const topic = item.getAttribute("data-topic") || "";
-      const paper = item.getAttribute("data-paper") || "";
+      const venue = (item.getAttribute("data-venue") || "").trim();
+      const topic = (item.getAttribute("data-topic") || "").trim();
+      const paper = (item.getAttribute("data-paper") || "").trim();
+      const paperTitle = (item.getAttribute("data-paper-title") || "").trim();
 
       let matchTop;
       if (currentView === "venue") {
@@ -292,7 +372,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       let matchPaper = true;
       if (currentView === "venue" && activePaper !== "All") {
-        matchPaper = paper === activePaper;
+        // paperId 或 paperTitle 任何一个匹配都算
+        matchPaper =
+          (paper && paper === activePaper) ||
+          (paperTitle && paperTitle === activePaper);
       }
 
       const match = matchTop && matchPaper;
@@ -335,10 +418,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const title = item.getAttribute("data-title") || "Figure";
     const meta = item.getAttribute("data-meta") || "";
     const primary = item.getAttribute("data-tag-primary") || "Figure";
-    const secondary =
-      item.getAttribute("data-tag-secondary") || "—";
+    const secondary = item.getAttribute("data-tag-secondary") || "—";
 
-    // 切换图片时重置缩放
     currentZoom = 1;
 
     mainImage.src = fullSrc;
@@ -347,6 +428,12 @@ document.addEventListener("DOMContentLoaded", () => {
     viewerMeta.textContent = meta;
     tagPrimary.textContent = primary;
     tagSecondary.textContent = secondary;
+
+    // 每次切图，把滚动位置恢复到顶部
+    if (imageFrame) {
+      imageFrame.scrollTop = 0;
+      imageFrame.scrollLeft = 0;
+    }
 
     const visible = getVisibleItems();
     const rank = visible.indexOf(item) + 1;
@@ -362,7 +449,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (scrollIntoView) {
       item.scrollIntoView({
         block: "nearest",
-        inline: "nearest",
+        inline: "nearest"
       });
     }
   }
@@ -417,7 +504,7 @@ document.addEventListener("DOMContentLoaded", () => {
     saveNotesStore();
   });
 
-  /* ========== 目录构建 & 状态 ========= */
+  /* ========== 8. 目录构建 & 状态 ========= */
 
   function refreshCategoryActiveStates() {
     const categoryItems = categoryListEl.querySelectorAll(".category-item");
@@ -431,37 +518,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const paperItems = categoryListEl.querySelectorAll(".paper-item");
     paperItems.forEach((btn) => {
-      const v = btn.getAttribute("data-venue");
-      const p = btn.getAttribute("data-paper");
+      const pKey = btn.getAttribute("data-paper-key");
       const isActive =
         currentView === "venue" &&
-        v === activeCategory &&
-        p === activePaper;
+        activePaper !== "All" &&
+        pKey === activePaper;
       btn.classList.toggle("active", isActive);
     });
+
+    // 顶部标题 All venues / All topics 的激活状态
+    if (categoryMainTitle) {
+      categoryMainTitle.classList.toggle("active", activeCategory === "All");
+    }
   }
 
   function buildCategories() {
     categoryListEl.innerHTML = "";
 
+    /* ---- Topic 视图 ---- */
     if (currentView === "topic") {
+      if (categoryMainTitle) categoryMainTitle.textContent = "All topics";
+
       const topicCount = new Map();
 
       thumbItems.forEach((item) => {
-        const topic = item.getAttribute("data-topic");
+        const topic = (item.getAttribute("data-topic") || "").trim();
         if (!topic) return;
+        if (TOPIC_EXCLUDE.has(topic)) return;
         topicCount.set(topic, (topicCount.get(topic) || 0) + 1);
       });
-
-      const total = thumbItems.length;
-      const allBtn = document.createElement("button");
-      allBtn.className = "category-item";
-      allBtn.setAttribute("data-value", "All");
-      allBtn.innerHTML = `
-        <span class="category-title">All topics</span>
-        <span class="category-item-count">${total}</span>
-      `;
-      categoryListEl.appendChild(allBtn);
 
       const names = Array.from(topicCount.keys()).sort();
       names.forEach((name) => {
@@ -479,41 +564,36 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // venue 视图：venue + paper 两级 + 折叠
+    /* ---- Venue 视图 ---- */
+    if (categoryMainTitle) categoryMainTitle.textContent = "All venues";
+
     const venueMap = new Map();
     thumbItems.forEach((item) => {
-      const venue = item.getAttribute("data-venue") || "Unknown";
-      const paperKey = item.getAttribute("data-paper") || "__noPaper__";
-      const paperTitle =
-        item.getAttribute("data-paper-title") || "Untitled figure set";
+      const venue = (item.getAttribute("data-venue") || "Unknown").trim();
+      const paperId = (item.getAttribute("data-paper") || "").trim();
+      const paperTitle = (item.getAttribute("data-paper-title") || "").trim();
 
       if (!venueMap.has(venue)) {
         venueMap.set(venue, {
           count: 0,
-          papers: new Map(),
+          papers: new Map()
         });
       }
       const venueEntry = venueMap.get(venue);
       venueEntry.count++;
 
+      // paperKey：优先用 paperId，否则用 paperTitle，否则 fallback
+      const paperKey = paperId || (paperTitle ? paperTitle : "__noPaper__");
+      const finalTitle = paperTitle || paperId || "Untitled figure set";
+
       if (!venueEntry.papers.has(paperKey)) {
         venueEntry.papers.set(paperKey, {
-          title: paperTitle,
-          count: 0,
+          title: finalTitle,
+          count: 0
         });
       }
       venueEntry.papers.get(paperKey).count++;
     });
-
-    const total = thumbItems.length;
-    const allBtn = document.createElement("button");
-    allBtn.className = "category-item";
-    allBtn.setAttribute("data-value", "All");
-    allBtn.innerHTML = `
-      <span class="category-title">All venues</span>
-      <span class="category-item-count">${total}</span>
-    `;
-    categoryListEl.appendChild(allBtn);
 
     const sortedVenues = Array.from(venueMap.entries()).sort((a, b) =>
       a[0].localeCompare(b[0])
@@ -523,12 +603,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const group = document.createElement("div");
       group.className = "category-venue-group";
 
-      const isCollapsed = collapsedVenues.has(venueName);
-
       const venueBtn = document.createElement("button");
       venueBtn.className = "category-item";
       venueBtn.setAttribute("data-value", venueName);
-      venueBtn.setAttribute("data-collapsed", isCollapsed ? "true" : "false");
+      venueBtn.setAttribute("data-collapsed", "true"); // 默认折叠
       venueBtn.innerHTML = `
         <span class="category-main-label">
           <span class="category-chevron">▾</span>
@@ -540,9 +618,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const paperListEl = document.createElement("div");
       paperListEl.className = "paper-list";
-      if (isCollapsed) {
-        paperListEl.style.display = "none";
-      }
+      paperListEl.style.display = "none";
 
       const sortedPapers = Array.from(entry.papers.entries()).sort(
         (a, b) => a[1].title.localeCompare(b[1].title)
@@ -553,7 +629,7 @@ document.addEventListener("DOMContentLoaded", () => {
         paperBtn.type = "button";
         paperBtn.className = "paper-item";
         paperBtn.setAttribute("data-venue", venueName);
-        paperBtn.setAttribute("data-paper", paperKey);
+        paperBtn.setAttribute("data-paper-key", paperKey);
         paperBtn.innerHTML = `
           <span class="paper-title">${paperInfo.title}</span>
           <span class="paper-item-count">${paperInfo.count}</span>
@@ -568,51 +644,78 @@ document.addEventListener("DOMContentLoaded", () => {
     refreshCategoryActiveStates();
   }
 
-  // 通过事件代理处理目录点击
+  // 点击 "All venues" / "All topics"：恢复显示所有图
+  if (categoryMainTitle) {
+    categoryMainTitle.addEventListener("click", () => {
+      activeCategory = "All";
+      activePaper = "All";
+      refreshCategoryActiveStates();
+      applyFilter();
+    });
+  }
+
+  /* ========== 9. 目录点击（折叠/过滤） ========= */
+
   categoryListEl.addEventListener("click", (e) => {
     const chevron = e.target.closest(".category-chevron");
     const paperBtn = e.target.closest(".paper-item");
     const categoryBtn = e.target.closest(".category-item");
 
-    if (chevron) {
-      const venueBtn = chevron.closest(".category-item");
-      if (!venueBtn) return;
-      const v = venueBtn.getAttribute("data-value");
-      if (!v || v === "All") return;
-
-      if (collapsedVenues.has(v)) {
-        collapsedVenues.delete(v);
-      } else {
-        collapsedVenues.add(v);
-      }
-      buildCategories();
-      return;
-    }
-
+    // 1）点击 paper：过滤到某篇文章
     if (paperBtn) {
-      const v = paperBtn.getAttribute("data-venue") || "All";
-      const p = paperBtn.getAttribute("data-paper") || "All";
-      activeCategory = v;
-      activePaper = p;
+      const paperKey = paperBtn.getAttribute("data-paper-key");
+      if (!paperKey) return;
+
+      activePaper = paperKey;
+      const venueName = paperBtn.getAttribute("data-venue") || "All";
+      activeCategory = venueName;
 
       refreshCategoryActiveStates();
       applyFilter();
       return;
     }
 
-    if (categoryBtn) {
-      const value = categoryBtn.getAttribute("data-value");
+    // 2）Venue 视图：点击箭头或整条 venue
+    if (chevron || (categoryBtn && currentView === "venue")) {
+      const venueRow = chevron
+        ? chevron.closest(".category-item")
+        : categoryBtn;
+      if (!venueRow) return;
+
+      const value = venueRow.getAttribute("data-value");
       if (!value) return;
 
+      const group = venueRow.closest(".category-venue-group");
+      const paperListEl = group?.querySelector(".paper-list");
+
+      // 折叠/展开
+      if (paperListEl) {
+        const isCollapsed = paperListEl.style.display === "none";
+        paperListEl.style.display = isCollapsed ? "" : "none";
+        venueRow.setAttribute("data-collapsed", isCollapsed ? "false" : "true");
+      }
+
+      // 设置过滤
       activeCategory = value;
       activePaper = "All";
+      refreshCategoryActiveStates();
+      applyFilter();
+      return;
+    }
 
+    // 3）Topic 视图：点击 topic 行
+    if (categoryBtn && currentView === "topic") {
+      const value = categoryBtn.getAttribute("data-value");
+      if (!value) return;
+      activeCategory = value;
+      activePaper = "All";
       refreshCategoryActiveStates();
       applyFilter();
     }
   });
 
-  // 视图切换：By venue / By topic
+  /* ========== 10. 视图切换（By venue / By topic） ========== */
+
   viewToggleButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const view = btn.getAttribute("data-view");
@@ -623,10 +726,7 @@ document.addEventListener("DOMContentLoaded", () => {
       activePaper = "All";
 
       viewToggleButtons.forEach((b) =>
-        b.classList.toggle(
-          "active",
-          b.getAttribute("data-view") === view
-        )
+        b.classList.toggle("active", b.getAttribute("data-view") === view)
       );
 
       buildCategories();
@@ -634,7 +734,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 初始化
+  /* ========== 11. 初始化 ========== */
+
   buildCategories();
   applyFilter();
 
