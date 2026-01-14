@@ -47,7 +47,7 @@ body {
   box-shadow: var(--shadow-soft);
   backdrop-filter: blur(22px);
 
-  /* 允许拖拽调整整体宽高 */
+  /* 允许拖拽调整整体宽高（桌面端） */
   resize: both;
   overflow: auto;
   max-width: 100vw;
@@ -140,31 +140,34 @@ body {
 
 /* ============ View Toggle + Directory ============ */
 
-/* 顶部 view-toggle：导航卡片上半部分 */
+/* 顶部视图切换：做成小标签，和 Directory 融在一起 */
 .view-toggle {
   display: flex;
-  gap: 6px;
-  padding: 6px 10px 7px;
-  margin: 10px 12px 0;
-  border-radius: 18px 18px 0 0;
-  border: 1px solid rgba(30, 64, 175, 0.75);
-  border-bottom: none;
-  background: radial-gradient(
-    circle at top left,
-    rgba(15, 23, 42, 0.96),
-    rgba(15, 23, 42, 0.9)
-  );
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.7);
+  gap: 40px;
+  padding: 0 20px 10px;
+  margin: 10px 0 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+
+  justify-content: center; /* 让按钮在水平方向居中 */
+  width: 100%;             /* 占满这一行，居中更稳定 */
 }
 
+
+/* 按钮本身做成小胶囊，文字更小 */
 .view-toggle-btn {
-  flex: 1;
-  font-size: 12px;
-  padding: 6px 10px;
+  flex: 0 0 auto;
+  min-width: 110px;              /* 让按钮本身更宽一些 */
+  font-size: 11px;
+  padding: 4px 18px;             /* 水平 padding 变大，外框更长 */
+  text-align: center;
+
   border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.5);
-  background: rgba(15, 23, 42, 0.85);
-  color: var(--text-muted);
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: rgba(15, 23, 42, 0.6);
+  color: rgba(156, 163, 175, 0.95);
   cursor: pointer;
   transition:
     background 0.15s ease-out,
@@ -173,20 +176,25 @@ body {
     transform 0.12s ease-out;
 }
 
+
+
 .view-toggle-btn:hover {
   transform: translateY(-1px);
   border-color: rgba(191, 219, 254, 0.7);
+  background: rgba(15, 23, 42, 0.9);
 }
 
+/* 选中的状态，用细一点的高亮，不再像一个整块卡片 */
 .view-toggle-btn.active {
   background: linear-gradient(
     135deg,
-    rgba(59, 130, 246, 0.96),
-    rgba(37, 99, 235, 0.96)
+    rgba(59, 130, 246, 0.9),
+    rgba(37, 99, 235, 0.9)
   );
   color: #e5e7eb;
   border-color: rgba(191, 219, 254, 0.95);
 }
+
 
 /* Directory 外层：改用分割线风格，而不是大卡片 */
 .category-wrapper {
@@ -200,7 +208,7 @@ body {
 }
 
 /* 顶部渐变分割线 */
-.category-wrapper::before {
+. {
   content: "";
   display: block;
   height: 1px;
@@ -235,15 +243,6 @@ body {
   box-shadow: 0 0 8px rgba(96, 165, 250, 0.9);
 }
 
-/* Directory 列表区域 */
-.category-list {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  max-height: 230px;
-  overflow-y: auto;
-  padding-right: 4px;
-}
 
 /* 顶层 venue/topic 项 */
 .category-item {
@@ -282,20 +281,47 @@ body {
   color: #e5e7eb;
 }
 
-.category-item-count {
-  font-size: 11px;
-  opacity: 0.9;
-}
-
 /* 二级目录：venue group + paper list */
 .category-venue-group {
   margin-bottom: 4px;
 }
 
-/* 折叠时小三角旋转 */
+/* 展开/折叠：箭头 + 标题在一行 */
+.category-main-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+/* 箭头本身 */
+.category-chevron {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  font-size: 11px;
+  opacity: 0.9;
+  cursor: pointer;
+  transition: transform 0.15s ease-out, opacity 0.15s ease-out;
+}
+
+/* 折叠时箭头旋转 */
 .category-item[data-collapsed="true"] .category-chevron {
   transform: rotate(-90deg);
   opacity: 0.7;
+}
+
+/* 顶层标题：Venue / Topic 名 */
+.category-title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(239, 246, 255, 0.96);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* 论文列表：缩进 + 左侧竖线 */
@@ -306,6 +332,17 @@ body {
   display: flex;
   flex-direction: column;
   gap: 3px;
+}
+
+/* 子标题：paper 名称，最多两行 */
+.paper-title {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(209, 213, 219, 0.9);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 /* 单条论文项 */
@@ -346,6 +383,16 @@ body {
   color: #f9fafb;
 }
 
+/* 数量的小角标 */
+.category-item-count {
+  font-size: 11px;
+  color: rgba(148, 163, 184, 0.9);
+}
+
+.paper-item-count {
+  font-size: 10px;
+  color: rgba(148, 163, 184, 0.8);
+}
 
 /* Directory 滚动条美化 */
 .category-list::-webkit-scrollbar {
@@ -917,70 +964,3 @@ body {
     height: calc(100vh - 260px - 40px);
   }
 }
-/* 展开/折叠：箭头 + 标题在一行 */
-.category-main-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  white-space: nowrap; /* 不换行，保证箭头和文字同一行 */
-}
-
-/* 箭头本身 */
-.category-chevron {
-  flex: 0 0 auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 12px;
-  font-size: 11px;
-  opacity: 0.9;
-  cursor: pointer;
-  transition: transform 0.15s ease-out, opacity 0.15s ease-out;
-}
-
-/* 折叠时箭头旋转 */
-.category-item[data-collapsed="true"] .category-chevron {
-  transform: rotate(-90deg);
-  opacity: 0.7;
-}
-
-/* 顶层标题：Venue / Topic */
-.category-title {
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: rgba(239, 246, 255, 0.96);
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* 子标题：paper 名称，最多两行 */
-.paper-title {
-  font-size: 12px;
-  font-weight: 400;
-  color: rgba(209, 213, 219, 0.9);
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-
-/* 数量的小角标稍微弱一点 */
-.category-item-count {
-  font-size: 11px;
-  color: rgba(148, 163, 184, 0.9);
-}
-
-.paper-item-count {
-  font-size: 10px;
-  color: rgba(148, 163, 184, 0.8);
-}
-
-/* 顶层条目垂直居中 */
-.category-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-

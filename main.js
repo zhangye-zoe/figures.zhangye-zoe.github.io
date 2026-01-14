@@ -14,24 +14,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const viewToggleButtons = document.querySelectorAll(".view-toggle-btn");
   const categoryListEl = document.getElementById("categoryList");
 
-  // 新增：整体布局 & sidebar 拖拽
   const appShell = document.querySelector(".app-shell");
   const sidebar = document.querySelector(".sidebar");
   const sidebarResizer = document.getElementById("sidebarResizer");
 
-  // 新增：缩放 & 放大镜
+  // 缩放 & 放大镜
   const zoomInBtn = document.getElementById("zoomInBtn");
   const zoomOutBtn = document.getElementById("zoomOutBtn");
   const zoomResetBtn = document.getElementById("zoomResetBtn");
   const imageFrame = document.getElementById("imageFrame");
   const magnifierLens = document.getElementById("magnifierLens");
 
-  // 新增：交互模式按钮
+  // 交互模式按钮
   const modeButtons = document.querySelectorAll(".mode-btn");
 
   // 模式：click | zoom | drag
   let interactionMode = "click";
-  
 
   let currentIndex = -1;
   let currentView = "venue";   // "venue" | "topic"
@@ -181,78 +179,77 @@ document.addEventListener("DOMContentLoaded", () => {
       // drag 模式的移动逻辑在全局 mousemove 里处理
     });
   }
-    /* ========== Drag 模式：按住左键拖拽平移 ========= */
-    let isPanning = false;
-    let startX = 0;
-    let startY = 0;
-    let startScrollLeft = 0;
-    let startScrollTop = 0;
-  
-    if (imageFrame) {
-      imageFrame.addEventListener("mousedown", (e) => {
-        if (interactionMode !== "drag") return;
-        if (e.button !== 0) return; // 只响应左键
-  
-        isPanning = true;
-        imageFrame.classList.add("panning");
-        startX = e.clientX;
-        startY = e.clientY;
-        startScrollLeft = imageFrame.scrollLeft;
-        startScrollTop = imageFrame.scrollTop;
-        e.preventDefault();
-      });
-    }
-  
-    document.addEventListener("mousemove", (e) => {
-      if (!isPanning || interactionMode !== "drag") return;
-      const dx = e.clientX - startX;
-      const dy = e.clientY - startY;
-      imageFrame.scrollLeft = startScrollLeft - dx;
-      imageFrame.scrollTop = startScrollTop - dy;
-    });
-  
-    document.addEventListener("mouseup", () => {
-      if (!isPanning) return;
-      isPanning = false;
-      imageFrame.classList.remove("panning");
-    });
 
-    function setInteractionMode(mode) {
-      interactionMode = mode;
-  
-      // 更新按钮 active 状态
-      modeButtons.forEach((btn) => {
-        btn.classList.toggle("active", btn.getAttribute("data-mode") === mode);
-      });
-  
-      // 更新图像区域的 mode class
-      if (!imageFrame) return;
-      imageFrame.classList.remove("mode-click", "mode-zoom", "mode-drag");
-      imageFrame.classList.add(`mode-${mode}`);
-  
-      // 切换模式时关掉放大镜
-      magnifierLens.style.display = "none";
-      isPanning = false;
-      imageFrame.classList.remove("panning");
-    }
-  
-    // 模式按钮点击绑定
+  /* ========== Drag 模式：按住左键拖拽平移 ========= */
+  let isPanning = false;
+  let startX = 0;
+  let startY = 0;
+  let startScrollLeft = 0;
+  let startScrollTop = 0;
+
+  if (imageFrame) {
+    imageFrame.addEventListener("mousedown", (e) => {
+      if (interactionMode !== "drag") return;
+      if (e.button !== 0) return; // 只响应左键
+
+      isPanning = true;
+      imageFrame.classList.add("panning");
+      startX = e.clientX;
+      startY = e.clientY;
+      startScrollLeft = imageFrame.scrollLeft;
+      startScrollTop = imageFrame.scrollTop;
+      e.preventDefault();
+    });
+  }
+
+  document.addEventListener("mousemove", (e) => {
+    if (!isPanning || interactionMode !== "drag") return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    imageFrame.scrollLeft = startScrollLeft - dx;
+    imageFrame.scrollTop = startScrollTop - dy;
+  });
+
+  document.addEventListener("mouseup", () => {
+    if (!isPanning) return;
+    isPanning = false;
+    imageFrame.classList.remove("panning");
+  });
+
+  function setInteractionMode(mode) {
+    interactionMode = mode;
+
+    // 更新按钮 active 状态
     modeButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const mode = btn.getAttribute("data-mode");
-        if (!mode) return;
-        setInteractionMode(mode);
-      });
+      btn.classList.toggle("active", btn.getAttribute("data-mode") === mode);
     });
-  
-    // 初始化：默认 click 模式
-    setInteractionMode("click");
-  
-  
 
+    // 更新图像区域的 mode class
+    if (!imageFrame) return;
+    imageFrame.classList.remove("mode-click", "mode-zoom", "mode-drag");
+    imageFrame.classList.add(`mode-${mode}`);
+
+    // 切换模式时关掉放大镜
+    if (magnifierLens) {
+      magnifierLens.style.display = "none";
+    }
+    isPanning = false;
+    imageFrame.classList.remove("panning");
+  }
+
+  // 模式按钮点击绑定
+  modeButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const mode = btn.getAttribute("data-mode");
+      if (!mode) return;
+      setInteractionMode(mode);
+    });
+  });
+
+  // 初始化：默认 click 模式
+  setInteractionMode("click");
 
   /* ========== Sidebar 拖拽调整宽度 ========= */
-
   let isResizingSidebar = false;
 
   sidebarResizer?.addEventListener("mousedown", (e) => {
@@ -316,10 +313,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    if (
-      currentIndex < 0 ||
-      !visible.includes(thumbItems[currentIndex])
-    ) {
+    if (currentIndex < 0 || !visible.includes(thumbItems[currentIndex])) {
       const firstVisible = visible[0];
       const newIndex = thumbItems.indexOf(firstVisible);
       updateViewer(newIndex, false);
@@ -423,28 +417,28 @@ document.addEventListener("DOMContentLoaded", () => {
     saveNotesStore();
   });
 
-  function refreshCategoryActiveStates() {
-    categoryListEl
-      .querySelectorAll(".category-item")
-      .forEach((btn) => {
-        const val = btn.getAttribute("data-value");
-        const isActive =
-          (activeCategory === "All" && val === "All") ||
-          (activeCategory !== "All" && val === activeCategory);
-        btn.classList.toggle("active", isActive);
-      });
+  /* ========== 目录构建 & 状态 ========= */
 
-    categoryListEl
-      .querySelectorAll(".paper-item")
-      .forEach((btn) => {
-        const v = btn.getAttribute("data-venue");
-        const p = btn.getAttribute("data-paper");
-        const isActive =
-          currentView === "venue" &&
-          v === activeCategory &&
-          p === activePaper;
-        btn.classList.toggle("active", isActive);
-      });
+  function refreshCategoryActiveStates() {
+    const categoryItems = categoryListEl.querySelectorAll(".category-item");
+    categoryItems.forEach((btn) => {
+      const value = btn.getAttribute("data-value");
+      const isActive =
+        (activeCategory === "All" && value === "All") ||
+        (activeCategory !== "All" && value === activeCategory);
+      btn.classList.toggle("active", isActive);
+    });
+
+    const paperItems = categoryListEl.querySelectorAll(".paper-item");
+    paperItems.forEach((btn) => {
+      const v = btn.getAttribute("data-venue");
+      const p = btn.getAttribute("data-paper");
+      const isActive =
+        currentView === "venue" &&
+        v === activeCategory &&
+        p === activePaper;
+      btn.classList.toggle("active", isActive);
+    });
   }
 
   function buildCategories() {
@@ -464,7 +458,7 @@ document.addEventListener("DOMContentLoaded", () => {
       allBtn.className = "category-item";
       allBtn.setAttribute("data-value", "All");
       allBtn.innerHTML = `
-        <span>All topics</span>
+        <span class="category-title">All topics</span>
         <span class="category-item-count">${total}</span>
       `;
       categoryListEl.appendChild(allBtn);
@@ -475,7 +469,7 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.className = "category-item";
         btn.setAttribute("data-value", name);
         btn.innerHTML = `
-          <span>${name}</span>
+          <span class="category-title">${name}</span>
           <span class="category-item-count">${topicCount.get(name)}</span>
         `;
         categoryListEl.appendChild(btn);
@@ -516,7 +510,7 @@ document.addEventListener("DOMContentLoaded", () => {
     allBtn.className = "category-item";
     allBtn.setAttribute("data-value", "All");
     allBtn.innerHTML = `
-      <span>All venues</span>
+      <span class="category-title">All venues</span>
       <span class="category-item-count">${total}</span>
     `;
     categoryListEl.appendChild(allBtn);
@@ -538,7 +532,7 @@ document.addEventListener("DOMContentLoaded", () => {
       venueBtn.innerHTML = `
         <span class="category-main-label">
           <span class="category-chevron">▾</span>
-          <span class="category-text">${venueName}</span>
+          <span class="category-title">${venueName}</span>
         </span>
         <span class="category-item-count">${entry.count}</span>
       `;
@@ -561,7 +555,7 @@ document.addEventListener("DOMContentLoaded", () => {
         paperBtn.setAttribute("data-venue", venueName);
         paperBtn.setAttribute("data-paper", paperKey);
         paperBtn.innerHTML = `
-          <span>${paperInfo.title}</span>
+          <span class="paper-title">${paperInfo.title}</span>
           <span class="paper-item-count">${paperInfo.count}</span>
         `;
         paperListEl.appendChild(paperBtn);
@@ -574,6 +568,7 @@ document.addEventListener("DOMContentLoaded", () => {
     refreshCategoryActiveStates();
   }
 
+  // 通过事件代理处理目录点击
   categoryListEl.addEventListener("click", (e) => {
     const chevron = e.target.closest(".category-chevron");
     const paperBtn = e.target.closest(".paper-item");
@@ -617,6 +612,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // 视图切换：By venue / By topic
   viewToggleButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const view = btn.getAttribute("data-view");

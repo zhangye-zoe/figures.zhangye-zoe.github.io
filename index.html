@@ -71,104 +71,17 @@
       </button>
     </div>
 
-    <!-- 目录区域：手动写好 All / Nature / CVPR / NeurIPS -->
+    <!-- 目录区域：由 JS 动态生成 -->
     <div class="category-wrapper">
       <div class="category-label">Directory</div>
-      <div class="category-list" id="categoryList">
-        <!-- All venues -->
-        <button
-          class="category-item active"
-          type="button"
-          data-type="all"
-          data-key="all">
-          <span class="category-title">All venues</span>
-          <span class="category-item-count">3</span>
-        </button>
-
-        <!-- CVPR -->
-        <button
-          class="category-item"
-          type="button"
-          data-type="venue"
-          data-key="CVPR"
-          data-collapsed="false">
-          <div class="category-main-label">
-            <span class="category-chevron" aria-hidden="true">▾</span>
-            <span class="category-title">CVPR</span>
-          </div>
-          <span class="category-item-count">1</span>
-        </button>
-
-        <div class="paper-list" data-parent="CVPR">
-          <button
-            class="paper-item"
-            type="button"
-            data-paper="cvpr-2024-multiscale">
-            <span class="paper-title">
-              CVPR 2024 · Multi-scale vision pipeline
-            </span>
-            <span class="paper-item-count">1</span>
-          </button>
-        </div>
-
-        <!-- Nature -->
-        <button
-          class="category-item"
-          type="button"
-          data-type="venue"
-          data-key="Nature"
-          data-collapsed="false">
-          <div class="category-main-label">
-            <span class="category-chevron" aria-hidden="true">▾</span>
-            <span class="category-title">Nature</span>
-          </div>
-          <span class="category-item-count">1</span>
-        </button>
-
-        <div class="paper-list" data-parent="Nature">
-          <button
-            class="paper-item"
-            type="button"
-            data-paper="nature-2023-multivelo">
-            <span class="paper-title">
-              Nature 2023 · MultiVelo tumor microenvironment atlas
-            </span>
-            <span class="paper-item-count">1</span>
-          </button>
-        </div>
-
-        <!-- NeurIPS -->
-        <button
-          class="category-item"
-          type="button"
-          data-type="venue"
-          data-key="NeurIPS"
-          data-collapsed="false">
-          <div class="category-main-label">
-            <span class="category-chevron" aria-hidden="true">▾</span>
-            <span class="category-title">NeurIPS</span>
-          </div>
-          <span class="category-item-count">1</span>
-        </button>
-
-        <div class="paper-list" data-parent="NeurIPS">
-          <button
-            class="paper-item"
-            type="button"
-            data-paper="neurips-2022-training">
-            <span class="paper-title">
-              NeurIPS 2022 · Training dynamics
-            </span>
-            <span class="paper-item-count">1</span>
-          </button>
-        </div>
-      </div>
+      <div class="category-list" id="categoryList"></div>
     </div>
 
-    <!-- 缩略图列表：只显示当前目录下的图 -->
+    <!-- 缩略图列表：只显示当前过滤下的图 -->
     <div class="sidebar-list" id="thumbList">
       <div class="section-label">Figures</div>
 
+      <!-- 示例 1：Nature -->
       <div class="thumb-item"
            data-full="images/Multivulo-Fig1.png"
            data-title="Nature 2023 · Tumor microenvironment map"
@@ -190,6 +103,7 @@
         <span class="thumb-badge">Fig 3</span>
       </div>
 
+      <!-- 示例 2：CVPR -->
       <div class="thumb-item"
            data-full="images/example2_large.jpg"
            data-title="CVPR 2024 · Multi-scale vision pipeline"
@@ -211,6 +125,7 @@
         <span class="thumb-badge">Fig 2</span>
       </div>
 
+      <!-- 示例 3：NeurIPS -->
       <div class="thumb-item"
            data-full="images/example3_large.jpg"
            data-title="NeurIPS 2022 · Training dynamics"
@@ -283,15 +198,33 @@
             <div class="mode-switch">
               <span class="mode-label">Interaction</span>
               <div class="mode-pill-group">
-                <button class="mode-btn active">Click</button>
-                <button class="mode-btn">Zoom</button>
-                <button class="mode-btn">Drag</button>
+                <button
+                  class="mode-btn active"
+                  type="button"
+                  data-mode="click"
+                >
+                  Click
+                </button>
+                <button
+                  class="mode-btn"
+                  type="button"
+                  data-mode="zoom"
+                >
+                  Zoom
+                </button>
+                <button
+                  class="mode-btn"
+                  type="button"
+                  data-mode="drag"
+                >
+                  Drag
+                </button>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="viewer-image-frame" id="imageFrame">
+        <div class="viewer-image-frame mode-click" id="imageFrame">
           <img id="mainImage" src="" alt="">
           <div class="magnifier-lens" id="magnifierLens" aria-hidden="true"></div>
           <div class="nav-arrows">
@@ -304,11 +237,11 @@
           </div>
         </div>
 
-        <!-- 笔记区域：每张图单独一块（本页内记忆） -->
+        <!-- 笔记区域 -->
         <div class="notes-block">
           <div class="notes-header">
             <span class="notes-title">Notes for this figure</span>
-            <span class="notes-hint">(not saved after refresh)</span>
+            <span class="notes-hint">(saved locally in this browser)</span>
           </div>
           <textarea id="figureNotes"
                     placeholder="Key ideas, experimental setup, caveats, or how this connects to your own work..."></textarea>
