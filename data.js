@@ -13,7 +13,7 @@ window.figureList = [
       tagPrimary: "Nature Biotechnolo g y",
       tagSecondary: "Model schematic",
       titleShort: "Fig 1 · Model overview",
-      titleFull: "Nature Biotechnology 2023 · Schematic of MultiVelo",
+      titleFull: "Nature Biotechnology 2023 · MultiVelo schematic ",
       meta: "Nature Biotechnology · Fig. 1 · Overview of MultiVelo and gene state model",
       desc: "ODE model, chromatin/RNA dynamics, priming & decoupling.",
       paperId: "natbiotech-2023-multivelo",
