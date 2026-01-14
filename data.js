@@ -518,7 +518,153 @@ window.figureList = [
       paperId: "natmed-2026-inflammation",
       paperTitle: "2026 · Interpretable inflammation landscape of circulating immune cells"
     },
+
+    {
+      id: "pertpy-fig1",
+      file: "images/figures/Pertpy/Fig1.png",
+      badge: "Fig 1",
+      venue: "Nature Methods",
+      topic: "Framework overview",
+      tagPrimary: "Framework",
+      tagSecondary: "Modules",
+      titleShort: "Fig 1",
+      titleFull: "Nature Methods 2025 · Fig. 1",
+      meta: "Nature Methods · Fig. 1 · Modules of the Pertpy framework",
+      desc: "Overview of Pertpy’s modules for metadata annotation, preprocessing, perturbation space construction, and downstream analyses such as differential expression, distances, multicellular programs, and mechanism-of-action enrichment.",
+      paperId: "natmethods-2025-pertpy",
+      paperTitle: "2025 · Pertpy: an end-to-end framework for perturbation analysis"
+    },
     
+    {
+      id: "pertpy-fig2",
+      file: "images/figures/Pertpy/Fig2.png",
+      badge: "Fig 2",
+      venue: "Nature Methods",
+      topic: "CRISPRa perturbation space",
+      tagPrimary: "CRISPRa screen",
+      tagSecondary: "Perturbation space",
+      titleShort: "Fig 2",
+      titleFull: "Nature Methods 2025 · Fig. 2",
+      meta: "Nature Methods · Fig. 2 · Learning perturbation spaces in a combinatorial CRISPRa screen",
+      desc: "UMAPs and perturbation embeddings for a combinatorial CRISPRa K562 dataset, showing how different preprocessing strategies and Mixscape-based filtering influence the learned perturbation space and gene program clustering.",
+      paperId: "natmethods-2025-pertpy",
+      paperTitle: "2025 · Pertpy: an end-to-end framework for perturbation analysis"
+    },
+    
+    {
+      id: "pertpy-fig3",
+      file: "images/figures/Pertpy/Fig3.png",
+      badge: "Fig 3",
+      venue: "Nature Methods",
+      topic: "Drug screen signatures",
+      tagPrimary: "Drug screen",
+      tagSecondary: "Viability decomposition",
+      titleShort: "Fig 3",
+      titleFull: "Nature Methods 2025 · Fig. 3",
+      meta: "Nature Methods · Fig. 3 · Deconvolution of viability-related response signatures in scRNA-seq drug screen data",
+      desc: "Pertpy-based analysis of a chemical perturbation dataset, using regression against GDSC profiles to decompose gene expression changes into viability-independent and viability-dependent components, with volcano plots and GSEA of response signatures.",
+      paperId: "natmethods-2025-pertpy",
+      paperTitle: "2025 · Pertpy: an end-to-end framework for perturbation analysis"
+    },
+    
+    {
+      id: "pertpy-fig4",
+      file: "images/figures/Pertpy/Fig4.png",
+      badge: "Fig 4",
+      venue: "Nature Methods",
+      topic: "TNBC treatment response",
+      tagPrimary: "TNBC",
+      tagSecondary: "Multicellular response",
+      titleShort: "Fig 4",
+      titleFull: "Nature Methods 2025 · Fig. 4",
+      meta: "Nature Methods · Fig. 4 · Pertpy identifies complex perturbation effects in a TNBC treatment dataset",
+      desc: "Schematic of a TNBC cohort treated with chemotherapy or anti-PD-L1 plus chemotherapy, showing scRNA-seq design, MSE distances between response groups, and scCODA-based compositional shifts across immune cell subsets between partial response and stable disease.",
+      paperId: "natmethods-2025-pertpy",
+      paperTitle: "2025 · Pertpy: an end-to-end framework for perturbation analysis"
+    },
+    
+    {
+      id: "pertpy-extfig1",
+      file: "images/figures/Pertpy/Ext-Fig1.png",
+      badge: "Ext 1",
+      venue: "Nature Methods",
+      topic: "Runtime and memory",
+      tagPrimary: "Extended data",
+      tagSecondary: "Benchmark",
+      titleShort: "Ext Fig 1",
+      titleFull: "Nature Methods 2025 · Extended Fig. 1",
+      meta: "Nature Methods · Extended Fig. 1 · Runtime and memory benchmark",
+      desc: "Runtime and memory usage comparison between Pertpy implementations and original or R-based implementations of key methods across multiple datasets.",
+      paperId: "natmethods-2025-pertpy",
+      paperTitle: "2025 · Pertpy: an end-to-end framework for perturbation analysis"
+    },
+    
+    {
+      id: "pertpy-extfig2",
+      file: "images/figures/Pertpy/Ext-Fig2.png",
+      badge: "Ext 2",
+      venue: "Nature Methods",
+      topic: "Preprocessing strategies",
+      tagPrimary: "Extended data",
+      tagSecondary: "Mixscape",
+      titleShort: "Ext Fig 2",
+      titleFull: "Nature Methods 2025 · Extended Fig. 2",
+      meta: "Nature Methods · Extended Fig. 2 · Comparison of preprocessing strategies for CRISPRa data",
+      desc: "Comparison of Mixscape-based preprocessing strategies, including perturbation signatures, classification of successfully perturbed cells, example score distributions, MLP classifier embeddings, and silhouette scores for gene programs under different strategies.",
+      paperId: "natmethods-2025-pertpy",
+      paperTitle: "2025 · Pertpy: an end-to-end framework for perturbation analysis"
+    },
+    
+    {
+      id: "pertpy-extfig3",
+      file: "images/figures/Pertpy/Ext-Fig3.png",
+      badge: "Ext 3",
+      venue: "Nature Methods",
+      topic: "Integrated gradients",
+      tagPrimary: "Extended data",
+      tagSecondary: "Feature importance",
+      titleShort: "Ext Fig 3",
+      titleFull: "Nature Methods 2025 · Extended Fig. 3",
+      meta: "Nature Methods · Extended Fig. 3 · Integrated gradients analysis of perturbation space",
+      desc: "Integrated gradients-based importance scores for top genes per gene program in the CRISPRa perturbation space, highlighting targeted genes and pairwise MSE distances between gene programs.",
+      paperId: "natmethods-2025-pertpy",
+      paperTitle: "2025 · Pertpy: an end-to-end framework for perturbation analysis"
+    },
+    
+    {
+      id: "pertpy-extfig4",
+      file: "images/figures/Pertpy/Ext-Fig4.png",
+      badge: "Ext 4",
+      venue: "Nature Methods",
+      topic: "Multicellular programs",
+      tagPrimary: "Extended data",
+      tagSecondary: "Treatment response",
+      titleShort: "Ext Fig 4",
+      titleFull: "Nature Methods 2025 · Extended Fig. 4",
+      meta: "Nature Methods · Extended Fig. 4 · Multicellular programs associated with treatment response",
+      desc: "DIALOGUE-derived multicellular programs linked to treatment efficacy in TNBC, including MCP scores, statistical associations with response, and pairplots of MCP2 across cell types and patients.",
+      paperId: "natmethods-2025-pertpy",
+      paperTitle: "2025 · Pertpy: an end-to-end framework for perturbation analysis"
+    },
+    
+    {
+      id: "pertpy-extfig5",
+      file: "images/figures/Pertpy/Ext-Fig5.png",
+      badge: "Ext 5",
+      venue: "Nature Methods",
+      topic: "MCP specificity",
+      tagPrimary: "Extended data",
+      tagSecondary: "Cell-type specificity",
+      titleShort: "Ext Fig 5",
+      titleFull: "Nature Methods 2025 · Extended Fig. 5",
+      meta: "Nature Methods · Extended Fig. 5 · Cell type specificity of multicellular programs and MCP2 gene scores",
+      desc: "Cell type–resolved distributions of MCP2 scores and lists of extreme MCP2 genes per cell type, showing how multicellular programs relate to poor versus good response to PD-L1 inhibitor–based therapy.",
+      paperId: "natmethods-2025-pertpy",
+      paperTitle: "2025 · Pertpy: an end-to-end framework for perturbation analysis"
+    },
+    
+    
+
 
 
   ];
