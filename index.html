@@ -71,11 +71,97 @@
       </button>
     </div>
 
-    <!-- 新增：目录区域（自动生成，比如 All / Nature / CVPR / NeurIPS ...） -->
+    <!-- 目录区域：手动写好 All / Nature / CVPR / NeurIPS -->
     <div class="category-wrapper">
       <div class="category-label">Directory</div>
       <div class="category-list" id="categoryList">
-        <!-- JS 会自动根据 data-venue / data-topic 填充 -->
+        <!-- All venues -->
+        <button
+          class="category-item active"
+          type="button"
+          data-type="all"
+          data-key="all">
+          <span class="category-title">All venues</span>
+          <span class="category-item-count">3</span>
+        </button>
+
+        <!-- CVPR -->
+        <button
+          class="category-item"
+          type="button"
+          data-type="venue"
+          data-key="CVPR"
+          data-collapsed="false">
+          <div class="category-main-label">
+            <span class="category-chevron" aria-hidden="true">▾</span>
+            <span class="category-title">CVPR</span>
+          </div>
+          <span class="category-item-count">1</span>
+        </button>
+
+        <div class="paper-list" data-parent="CVPR">
+          <button
+            class="paper-item"
+            type="button"
+            data-paper="cvpr-2024-multiscale">
+            <span class="paper-title">
+              CVPR 2024 · Multi-scale vision pipeline
+            </span>
+            <span class="paper-item-count">1</span>
+          </button>
+        </div>
+
+        <!-- Nature -->
+        <button
+          class="category-item"
+          type="button"
+          data-type="venue"
+          data-key="Nature"
+          data-collapsed="false">
+          <div class="category-main-label">
+            <span class="category-chevron" aria-hidden="true">▾</span>
+            <span class="category-title">Nature</span>
+          </div>
+          <span class="category-item-count">1</span>
+        </button>
+
+        <div class="paper-list" data-parent="Nature">
+          <button
+            class="paper-item"
+            type="button"
+            data-paper="nature-2023-multivelo">
+            <span class="paper-title">
+              Nature 2023 · MultiVelo tumor microenvironment atlas
+            </span>
+            <span class="paper-item-count">1</span>
+          </button>
+        </div>
+
+        <!-- NeurIPS -->
+        <button
+          class="category-item"
+          type="button"
+          data-type="venue"
+          data-key="NeurIPS"
+          data-collapsed="false">
+          <div class="category-main-label">
+            <span class="category-chevron" aria-hidden="true">▾</span>
+            <span class="category-title">NeurIPS</span>
+          </div>
+          <span class="category-item-count">1</span>
+        </button>
+
+        <div class="paper-list" data-parent="NeurIPS">
+          <button
+            class="paper-item"
+            type="button"
+            data-paper="neurips-2022-training">
+            <span class="paper-title">
+              NeurIPS 2022 · Training dynamics
+            </span>
+            <span class="paper-item-count">1</span>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -83,7 +169,6 @@
     <div class="sidebar-list" id="thumbList">
       <div class="section-label">Figures</div>
 
-      <!-- 保持你原来的 thumb-item 列表结构即可 -->
       <div class="thumb-item"
            data-full="images/Multivulo-Fig1.png"
            data-title="Nature 2023 · Tumor microenvironment map"
@@ -92,7 +177,9 @@
            data-tag-secondary="Tumor microenvironment"
            data-venue="Nature"
            data-topic="Spatial transcriptomics"
-           data-id="nature-2023-tme-fig3">
+           data-id="nature-2023-tme-fig3"
+           data-paper="nature-2023-multivelo"
+           data-paper-title="Nature 2023 · MultiVelo tumor microenvironment atlas">
         <div class="thumb-image-wrap">
           <img src="images/Multivulo-Fig1.png" alt="Nature 2023 TME atlas" loading="lazy">
         </div>
@@ -111,7 +198,9 @@
            data-tag-secondary="Pipeline"
            data-venue="CVPR"
            data-topic="Computer vision"
-           data-id="cvpr-2024-multiscale-pipeline">
+           data-id="cvpr-2024-multiscale-pipeline"
+           data-paper="cvpr-2024-multiscale"
+           data-paper-title="CVPR 2024 · Multi-scale vision pipeline">
         <div class="thumb-image-wrap">
           <img src="images/example2_thumb.jpg" alt="CVPR 2024 pipeline" loading="lazy">
         </div>
@@ -130,7 +219,9 @@
            data-tag-secondary="Optimization"
            data-venue="NeurIPS"
            data-topic="Optimization / training"
-           data-id="neurips-2022-training-dynamics">
+           data-id="neurips-2022-training-dynamics"
+           data-paper="neurips-2022-training"
+           data-paper-title="NeurIPS 2022 · Training dynamics">
         <div class="thumb-image-wrap">
           <img src="images/example3_thumb.jpg" alt="NeurIPS 2022 training" loading="lazy">
         </div>
@@ -140,8 +231,6 @@
         </div>
         <span class="thumb-badge">Fig 4</span>
       </div>
-
-      <!-- 继续按这个结构加就行 -->
     </div>
 
     <!-- 侧边栏 footer -->
@@ -151,6 +240,11 @@
     </div>
   </aside>
 
+  <!-- 中间可拖动分割条 -->
+  <div class="sidebar-resizer" id="sidebarResizer"
+       role="separator"
+       aria-orientation="vertical"
+       aria-label="Resize sidebar"></div>
 
   <!-- 右侧：大图 + notes -->
   <section class="viewer">
@@ -168,13 +262,38 @@
 
     <div class="viewer-main">
       <div class="viewer-card">
-        <div class="viewer-tag-row">
-          <span class="viewer-tag" id="tagPrimary">—</span>
-          <span class="viewer-tag secondary" id="tagSecondary">—</span>
+        <div class="viewer-card-header">
+          <div class="viewer-header-left">
+            <div class="viewer-tag-row">
+              <span class="viewer-tag" id="tagPrimary">—</span>
+              <span class="viewer-tag secondary" id="tagSecondary">—</span>
+            </div>
+            <div class="tag-caption" id="tagCaption">
+              Venue · Topic
+            </div>
+          </div>
+
+          <div class="viewer-header-right">
+            <div class="zoom-controls" aria-label="Zoom controls">
+              <button type="button" class="zoom-btn" id="zoomOutBtn" title="Zoom out">−</button>
+              <button type="button" class="zoom-btn" id="zoomResetBtn" title="Reset zoom">100%</button>
+              <button type="button" class="zoom-btn" id="zoomInBtn" title="Zoom in">+</button>
+            </div>
+
+            <div class="mode-switch">
+              <span class="mode-label">Interaction</span>
+              <div class="mode-pill-group">
+                <button class="mode-btn active">Click</button>
+                <button class="mode-btn">Zoom</button>
+                <button class="mode-btn">Drag</button>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="viewer-image-frame">
+        <div class="viewer-image-frame" id="imageFrame">
           <img id="mainImage" src="" alt="">
+          <div class="magnifier-lens" id="magnifierLens" aria-hidden="true"></div>
           <div class="nav-arrows">
             <button class="nav-btn" id="prevBtn" title="Previous (←)" type="button">
               &#8592;
