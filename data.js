@@ -873,7 +873,260 @@ window.figureList = [
       desc: "Improved spatial patterns and domain readouts for histone modification signals in spatial CUT&Tag, benchmarking SPEED against other denoising approaches.",
       paperId: "natcompsci-2025-speed",
       paperTitle: "2025 · Denoising spatial epigenomic data via deep matrix factorization"
-    }
+    },
+
+      // ========== MAIN FIGURES ==========
+    
+      {
+        id: "dbitplus-fig1",
+        file: "images/figures/DBiTPlus/Fig1.png",
+        badge: "Fig 1",
+        venue: "Nature Methods",
+        topic: "Workflow overview",
+        tagPrimary: "Nature Methods",
+        tagSecondary: "Spatial multi-omics",
+        titleShort: "Fig 1 · DBiTplus workflow",
+        titleFull: "Nature Methods 2025 · DBiTplus workflow and integrative multimodal analysis",
+        meta: "Nature Methods · Fig. 1 · Workflow of DBiTplus integrating spatial transcriptomics and multiplexed protein imaging on the same section.",
+        desc: "DBiTplus experimental workflow, cDNA retrieval by RNase H, mxIF imaging, and three-stage computational pipeline for segmentation, MaxFuse-based integration, and spot splitting.",
+        paperId: "natmethods-2025-dbitplus",
+        paperTitle: "2025 · Integration of imaging-based and sequencing-based spatial omics mapping on the same tissue section via DBiTplus"
+      },
+    
+      {
+        id: "dbitplus-fig2",
+        file: "images/figures/DBiTPlus/Fig2.png",
+        badge: "Fig 2",
+        venue: "Nature Methods",
+        topic: "Mouse embryo multi-omics",
+        tagPrimary: "Nature Methods",
+        tagSecondary: "Embryogenesis",
+        titleShort: "Fig 2 · FFPE mouse embryo",
+        titleFull: "Nature Methods 2025 · DBiTplus performance in FFPE mouse embryo",
+        meta: "Nature Methods · Fig. 2 · Comparison to standard DBiT-seq, clustering, RNA–protein concordance, and CODEX-guided spot deconvolution.",
+        desc: "Correlation with standard DBiT-seq, gene/UMI distributions, UMAP clusters mapping to embryonic structures, matched RNA–protein spatial patterns, and CODEX-informed cell-type decomposition of DBiTplus spots.",
+        paperId: "natmethods-2025-dbitplus",
+        paperTitle: "2025 · Integration of imaging-based and sequencing-based spatial omics mapping on the same tissue section via DBiTplus"
+      },
+    
+      {
+        id: "dbitplus-fig3",
+        file: "images/figures/DBiTPlus/Fig3.png",
+        badge: "Fig 3",
+        venue: "Nature Methods",
+        topic: "Human lymph node",
+        tagPrimary: "Nature Methods",
+        tagSecondary: "Human tissue",
+        titleShort: "Fig 3 · Benign lymph node",
+        titleFull: "Nature Methods 2025 · Spatial multi-omic profiling of benign human lymph node",
+        meta: "Nature Methods · Fig. 3 · DBiTplus and CODEX integration in human lymph node with deconvolution benchmarking.",
+        desc: "Spatial clustering of FFPE lymph node, CODEX marker staining, image registration, WNN joint embedding, T/B cell subset composition, and comparison of TACCO / Cell2location / RCTD deconvolution against CODEX-informed ground truth.",
+        paperId: "natmethods-2025-dbitplus",
+        paperTitle: "2025 · Integration of imaging-based and sequencing-based spatial omics mapping on the same tissue section via DBiTplus"
+      },
+    
+      {
+        id: "dbitplus-fig4",
+        file: "images/figures/DBiTPlus/Fig4.png",
+        badge: "Fig 4",
+        venue: "Nature Methods",
+        topic: "Marginal zone lymphoma",
+        tagPrimary: "Nature Methods",
+        tagSecondary: "Lymphoma progression",
+        titleShort: "Fig 4 · MZL progression",
+        titleFull: "Nature Methods 2025 · Spatial multi-omic characterization of marginal zone lymphoma",
+        meta: "Nature Methods · Fig. 4 · DBiTplus characterization of small vs large B cells during MZL evolution.",
+        desc: "H&E and CODEX of MZL section, spatial mapping of small and large B cells, DEGs and volcano plots, pathway enrichment in small vs large B cells, pseudotime trajectory and gene modules along transformation.",
+        paperId: "natmethods-2025-dbitplus",
+        paperTitle: "2025 · Integration of imaging-based and sequencing-based spatial omics mapping on the same tissue section via DBiTplus"
+      },
+    
+      {
+        id: "dbitplus-fig5",
+        file: "images/figures/DBiTPlus/Fig5.png",
+        badge: "Fig 5",
+        venue: "Nature Methods",
+        topic: "CLL → DLBCL transformation",
+        tagPrimary: "Nature Methods",
+        tagSecondary: "Richter transformation",
+        titleShort: "Fig 5 · CLL to DLBCL",
+        titleFull: "Nature Methods 2025 · Spatial characterization of Richter’s transformation from CLL to DLBCL",
+        meta: "Nature Methods · Fig. 5 · DBiTplus and multiplex imaging reveal spatial immune programs and B-cell states across CLL–DLBCL interface.",
+        desc: "Histology and mxIF of CLL vs DLBCL regions, spatial distribution of T cells, DBiTplus/CODEX-guided cell-type deconvolution, cell-size comparison, immune functional scores, DEGs in small B cells, pathway analysis, immune checkpoint/cytotoxicity gene heatmap, and spatial BCR activation score.",
+        paperId: "natmethods-2025-dbitplus",
+        paperTitle: "2025 · Integration of imaging-based and sequencing-based spatial omics mapping on the same tissue section via DBiTplus"
+      },
+    
+      // ========== EXTENDED DATA FIGURES ==========
+    
+      {
+        id: "dbitplus-extfig1",
+        file: "images/figures/DBiTPlus/Ext-Fig1.png",
+        badge: "Ext 1",
+        venue: "Nature Methods",
+        topic: "cDNA retrieval optimization",
+        tagPrimary: "Extended data",
+        tagSecondary: "Method optimization",
+        titleShort: "Ext Fig 1 · Retrieval methods",
+        titleFull: "Extended Data Fig. 1 · Optimization of cDNA retrieval strategies for DBiTplus",
+        meta: "Extended Data · Fig. 1 · Comparison of NaOH, DMSO and RNase H for cDNA release and impact on tissue integrity and CODEX staining.",
+        desc: "Screens chemical vs enzymatic cDNA retrieval approaches, demonstrating that RNase H preserves morphology and allows high-quality multiplex protein imaging.",
+        paperId: "natmethods-2025-dbitplus",
+        paperTitle: "2025 · Integration of imaging-based and sequencing-based spatial omics mapping on the same tissue section via DBiTplus"
+      },
+    
+      {
+        id: "dbitplus-extfig2",
+        file: "images/figures/DBiTPlus/Ext-Fig2.png",
+        badge: "Ext 2",
+        venue: "Nature Methods",
+        topic: "Fresh frozen performance",
+        tagPrimary: "Extended data",
+        tagSecondary: "Mouse embryo",
+        titleShort: "Ext Fig 2 · Frozen embryo QC",
+        titleFull: "Extended Data Fig. 2 · DBiTplus performance in fresh frozen mouse embryos",
+        meta: "Extended Data · Fig. 2 · Gene counts, replicate correlations, spatial clusters and ISH comparison in frozen E13 embryos.",
+        desc: "Compares control vs RNase H treatment, reports gene/UMI statistics, replicate correlations, spatial clustering and alignment with Allen Brain Atlas / MOSTA reference.",
+        paperId: "natmethods-2025-dbitplus",
+        paperTitle: "2025 · Integration of imaging-based and sequencing-based spatial omics mapping on the same tissue section via DBiTplus"
+      },
+    
+      {
+        id: "dbitplus-extfig3",
+        file: "images/figures/DBiTPlus/Ext-Fig3.png",
+        badge: "Ext 3",
+        venue: "Nature Methods",
+        topic: "Embryo annotation",
+        tagPrimary: "Extended data",
+        tagSecondary: "Marker validation",
+        titleShort: "Ext Fig 3 · Embryo markers",
+        titleFull: "Extended Data Fig. 3 · Transcriptomic clusters and marker validation in mouse embryo",
+        meta: "Extended Data · Fig. 3 · Cluster heat maps, gene markers, and comparison to ISH datasets.",
+        desc: "Shows cluster-specific markers for embryonic tissues, spatial expression of key genes, and consistency with external in situ datasets.",
+        paperId: "natmethods-2025-dbitplus",
+        paperTitle: "2025 · Integration of imaging-based and sequencing-based spatial omics mapping on the same tissue section via DBiTplus"
+      },
+    
+      {
+        id: "dbitplus-extfig4",
+        file: "images/figures/DBiTPlus/Ext-Fig4.png",
+        badge: "Ext 4",
+        venue: "Nature Methods",
+        topic: "Lymph node benchmarking",
+        tagPrimary: "Extended data",
+        tagSecondary: "Deconvolution QC",
+        titleShort: "Ext Fig 4 · LN deconvolution QC",
+        titleFull: "Extended Data Fig. 4 · Benchmarking spatial cell-type deconvolution in benign lymph node",
+        meta: "Extended Data · Fig. 4 · F1-scores for label transfer, cell-type distributions, ARI/ASW changes with CODEX guidance.",
+        desc: "Evaluates label-transfer performance, compares clustering structure with and without protein information, and reports deconvolution metrics.",
+        paperId: "natmethods-2025-dbitplus",
+        paperTitle: "2025 · Integration of imaging-based and sequencing-based spatial omics mapping on the same tissue section via DBiTplus"
+      },
+    
+      {
+        id: "dbitplus-extfig5",
+        file: "images/figures/DBiTPlus/Ext-Fig5.png",
+        badge: "Ext 5",
+        venue: "Nature Methods",
+        topic: "Immune subsets",
+        tagPrimary: "Extended data",
+        tagSecondary: "B-cell biology",
+        titleShort: "Ext Fig 5 · LN immune states",
+        titleFull: "Extended Data Fig. 5 · Immune cell heterogeneity in benign lymph node",
+        meta: "Extended Data · Fig. 5 · UMAP of DBiTplus RNA, B/T cell markers and B-cell activation/maturation profiles.",
+        desc: "Defines naive, memory, activated and cycling B-cell subsets, with marker and pathway analysis of antigen-inexperienced vs antigen-experienced states.",
+        paperId: "natmethods-2025-dbitplus",
+        paperTitle: "2025 · Integration of imaging-based and sequencing-based spatial omics mapping on the same tissue section via DBiTplus"
+      },
+    
+      {
+        id: "dbitplus-extfig6",
+        file: "images/figures/DBiTPlus/Ext-Fig6.png",
+        badge: "Ext 6",
+        venue: "Nature Methods",
+        topic: "RNA–protein concordance",
+        tagPrimary: "Extended data",
+        tagSecondary: "Concordance",
+        titleShort: "Ext Fig 6 · RNA–protein QC",
+        titleFull: "Extended Data Fig. 6 · Concordance of RNA and protein in human lymph node",
+        meta: "Extended Data · Fig. 6 · Correlation vs reference dataset, transcript–protein relationship, CD68 example.",
+        desc: "Compares DBiTplus RNA levels to an existing Patho-DBiT dataset, analyzes overall RNA–protein correlation and highlights macrophage markers including CD68.",
+        paperId: "natmethods-2025-dbitplus",
+        paperTitle: "2025 · Integration of imaging-based and sequencing-based spatial omics mapping on the same tissue section via DBiTplus"
+      },
+    
+      {
+        id: "dbitplus-extfig7",
+        file: "images/figures/DBiTPlus/Ext-Fig7.png",
+        badge: "Ext 7",
+        venue: "Nature Methods",
+        topic: "MZL pathways",
+        tagPrimary: "Extended data",
+        tagSecondary: "Lymphoma evolution",
+        titleShort: "Ext Fig 7 · MZL signaling",
+        titleFull: "Extended Data Fig. 7 · Extended molecular analysis of marginal zone lymphoma progression",
+        meta: "Extended Data · Fig. 7 · DEGs, pathway enrichment and upstream/casual regulator analysis in small vs large B cells.",
+        desc: "Highlights NF-κB, PI3K–AKT, WNT–β-catenin and chromatin remodeling changes and identifies regulators such as SYK, DOCK2 and SPEN.",
+        paperId: "natmethods-2025-dbitplus",
+        paperTitle: "2025 · Integration of imaging-based and sequencing-based spatial omics mapping on the same tissue section via DBiTplus"
+      },
+    
+      {
+        id: "dbitplus-extfig8",
+        file: "images/figures/DBiTPlus/Ext-Fig8.png",
+        badge: "Ext 8",
+        venue: "Nature Methods",
+        topic: "CLL–DLBCL boundary",
+        tagPrimary: "Extended data",
+        tagSecondary: "Cell-state classification",
+        titleShort: "Ext Fig 8 · Transformation boundary",
+        titleFull: "Extended Data Fig. 8 · Additional analyses for CLL and DLBCL spatial organization",
+        meta: "Extended Data · Fig. 8 · Histology details, QC imaging, cell-size and gating strategies for small vs large B cells.",
+        desc: "Shows transitional regions, T-cell distances, B-cell diameter distributions and gating used to refine CLL vs DLBCL classification.",
+        paperId: "natmethods-2025-dbitplus",
+        paperTitle: "2025 · Integration of imaging-based and sequencing-based spatial omics mapping on the same tissue section via DBiTplus"
+      },
+    
+      {
+        id: "dbitplus-extfig9",
+        file: "images/figures/DBiTPlus/Ext-Fig9.png",
+        badge: "Ext 9",
+        venue: "Nature Methods",
+        topic: "Immune phenotypes",
+        tagPrimary: "Extended data",
+        tagSecondary: "Checkpoint molecules",
+        titleShort: "Ext Fig 9 · Immune scoring",
+        titleFull: "Extended Data Fig. 9 · Functional immune states in CLL vs DLBCL",
+        meta: "Extended Data · Fig. 9 · UMAP clusters, pathway analysis and immune exhaustion/activation scores.",
+        desc: "Profiles immune phenotypes and pathway differences, including T-cell exhaustion and immune checkpoint programs across CLL and DLBCL.",
+        paperId: "natmethods-2025-dbitplus",
+        paperTitle: "2025 · Integration of imaging-based and sequencing-based spatial omics mapping on the same tissue section via DBiTplus"
+      },
+    
+      {
+        id: "dbitplus-extfig10",
+        file: "images/figures/DBiTPlus/Ext-Fig10.png",
+        badge: "Ext 10",
+        venue: "Nature Methods",
+        topic: "miRNA spatial analysis",
+        tagPrimary: "Extended data",
+        tagSecondary: "miRNA",
+        titleShort: "Ext Fig 10 · miRNA atlas",
+        titleFull: "Extended Data Fig. 10 · Spatial profiling of miRNAs during CLL–DLBCL transformation",
+        meta: "Extended Data · Fig. 10 · miRNA clusters (including miR-21, miR-34a, miR-155) and pathway links such as PI3K–AKT.",
+        desc: "Reveals spatial miRNA modules associated with transformation and validates their roles in PTEN/PI3K–AKT and lymphoma progression.",
+        paperId: "natmethods-2025-dbitplus",
+        paperTitle: "2025 · Integration of imaging-based and sequencing-based spatial omics mapping on the same tissue section via DBiTplus"
+      }
+  
+    
+
+
+
+
+    
+
+    
     
 
 
