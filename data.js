@@ -663,6 +663,136 @@ window.figureList = [
       paperTitle: "2025 · Pertpy: an end-to-end framework for perturbation analysis"
     },
     
+    {
+      id: "spatialz-fig1",
+      file: "images/figures/SpatialZ/Fig1.png",
+      badge: "Fig 1",
+      venue: "Nature Methods",
+      topic: "3D reconstruction",
+      tagPrimary: "Nature Methods",
+      tagSecondary: "Workflow schematic",
+      titleShort: "Fig 1 · SpatialZ workflow",
+      titleFull: "Nature Methods 2025 · Overview of the SpatialZ computational framework",
+      meta: "Nature Methods · Fig. 1 · SpatialZ workflow including spatial alignment, location generation, attribute assignment and gene expression synthesis.",
+      desc: "Pipeline overview, sliced Wasserstein barycenter, niche-based label transfer, gene expression synthesis and applications such as 3D atlas and in silico sectioning.",
+      paperId: "natmethods-2025-spatialz",
+      paperTitle: "2025 · Bridging the dimensional gap from planar spatial transcriptomics to 3D cell atlases with SpatialZ"
+    },
+  
+    {
+      id: "spatialz-fig2",
+      file: "images/figures/SpatialZ/Fig2.png",
+      badge: "Fig 2",
+      venue: "Nature Methods",
+      topic: "Benchmarking",
+      tagPrimary: "Nature Methods",
+      tagSecondary: "Real 3D validation",
+      titleShort: "Fig 2 · Real 3D evaluation",
+      titleFull: "Nature Methods 2025 · Evaluation of SpatialZ using real 3D STARmap data",
+      meta: "Nature Methods · Fig. 2 · Held-out slice recovery, UMAP continuity, SOVIEW visualization and spatial autocorrelation benchmarking.",
+      desc: "UMAP continuity, RGB marker spatial patterns, QC metrics, Moran’s I / Geary’s C correlation, spatially variable gene overlap and dense volume reconstruction benchmarking.",
+      paperId: "natmethods-2025-spatialz",
+      paperTitle: "2025 · Bridging the dimensional gap from planar spatial transcriptomics to 3D cell atlases with SpatialZ"
+    },
+  
+    {
+      id: "spatialz-fig3",
+      file: "images/figures/SpatialZ/Fig3.png",
+      badge: "Fig 3",
+      venue: "Nature Methods",
+      topic: "Mouse brain atlas",
+      tagPrimary: "Nature Methods",
+      tagSecondary: "BICCN reconstruction",
+      titleShort: "Fig 3 · Mouse brain atlas",
+      titleFull: "Nature Methods 2025 · SpatialZ reconstruction of a large-scale mouse brain atlas",
+      meta: "Nature Methods · Fig. 3 · Reconstruction of 38M-cell dense 3D mouse brain atlas using virtual slices between 129 MERFISH sections.",
+      desc: "UMAP integration, cell-type continuity assessment, spatial domain assignment, region-level alignment and alluvial transitions across real/virtual slices.",
+      paperId: "natmethods-2025-spatialz",
+      paperTitle: "2025 · Bridging the dimensional gap from planar spatial transcriptomics to 3D cell atlases with SpatialZ"
+    },
+  
+    {
+      id: "spatialz-fig4",
+      file: "images/figures/SpatialZ/Fig4.png",
+      badge: "Fig 4",
+      venue: "Nature Methods",
+      topic: "3D visualization",
+      tagPrimary: "Nature Methods",
+      tagSecondary: "In silico slicing",
+      titleShort: "Fig 4 · In silico sectioning",
+      titleFull: "Nature Methods 2025 · In silico sectioning and 3D gene expression rendering using SpatialZ",
+      meta: "Nature Methods · Fig. 4 · Arbitrary-angle slicing, sagittal/horizontal/custom plane synthesis and 3D mesh-based rendering.",
+      desc: "Custom view synthesis, validation with Allen Brain ISH, continuous surface rendering, and 3D region-wise gene expression gradient visualization.",
+      paperId: "natmethods-2025-spatialz",
+      paperTitle: "2025 · Bridging the dimensional gap from planar spatial transcriptomics to 3D cell atlases with SpatialZ"
+    },
+  
+    {
+      id: "spatialz-fig5",
+      file: "images/figures/SpatialZ/Fig5.png",
+      badge: "Fig 5",
+      venue: "Nature Methods",
+      topic: "Isocortex analysis",
+      tagPrimary: "Nature Methods",
+      tagSecondary: "Spatial gradients",
+      titleShort: "Fig 5 · Isocortex 3D structure",
+      titleFull: "Nature Methods 2025 · SpatialZ reveals the 3D constitution of mouse isocortex",
+      meta: "Nature Methods · Fig. 5 · Horizontal-plane synthesis, GASTON isodepth gradients, and cross-plane domain/marker validation.",
+      desc: "Cross-view isodepth gradients, spatial domains, cell-type proportions and marker gene distributions (Gfap, Slc30a3, Lamp5, Pvalb, Fezf2) across coronal vs horizontal views.",
+      paperId: "natmethods-2025-spatialz",
+      paperTitle: "2025 · Bridging the dimensional gap from planar spatial transcriptomics to 3D cell atlases with SpatialZ"
+    },
+  
+    {
+      id: "spatialz-fig6",
+      file: "images/figures/SpatialZ/Fig6.png",
+      badge: "Fig 6",
+      venue: "Nature Methods",
+      topic: "Imaging mass cytometry",
+      tagPrimary: "Nature Methods",
+      tagSecondary: "Human cancer",
+      titleShort: "Fig 6 · IMC extension",
+      titleFull: "Nature Methods 2025 · SpatialZ extension to human breast cancer IMC data",
+      meta: "Nature Methods · Fig. 6 · Reconstruction of 3D IMC volume, spatial protein gradients and pseudo-3D slice extraction.",
+      desc: "GASTON protein gradients, TME spatial domains, artifact correction via pseudo-3D slices, and marker-level validation (panCK, CD3).",
+      paperId: "natmethods-2025-spatialz",
+      paperTitle: "2025 · Bridging the dimensional gap from planar spatial transcriptomics to 3D cell atlases with SpatialZ"
+    },
+  
+  
+    // ========== EXTENDED DATA FIGURES ==========
+  
+    {
+      id: "spatialz-ed1",
+      file: "images/figures/SpatialZ/Ext-Fig1.png",
+      badge: "ED Fig 1",
+      venue: "Nature Methods",
+      topic: "Dense reconstruction",
+      tagPrimary: "Extended Data",
+      tagSecondary: "Hypothalamus",
+      titleShort: "ED Fig 1 · Dense hypothalamus atlas",
+      titleFull: "Extended Data Fig. 1 · SpatialZ reconstruction of dense spatial data in hypothalamic preoptic region",
+      meta: "Extended Data · Fig. 1 · Workflow, UMAP distribution, cell density, cell type continuity, RGB marker SOVIEW, domain detection (STAGATE/BINARY).",
+      desc: "Reconstruction workflow, real–virtual comparison, spatial domains and quantitative evaluation (ARI, NMI).",
+      paperId: "natmethods-2025-spatialz",
+      paperTitle: "2025 · Bridging the dimensional gap from planar spatial transcriptomics to 3D cell atlases with SpatialZ"
+    },
+  
+    {
+      id: "spatialz-ed2",
+      file: "images/figures/SpatialZ/Ext-Fig2.png",
+      badge: "ED Fig 2",
+      venue: "Nature Methods",
+      topic: "3D spatial search",
+      tagPrimary: "Extended Data",
+      tagSecondary: "CAST alignment",
+      titleShort: "ED Fig 2 · 3D spatial mapping",
+      titleFull: "Extended Data Fig. 2 · SpatialZ-reconstructed 3D atlas enables 3D spatial search",
+      meta: "Extended Data · Fig. 2 · Integration of CAST with SpatialZ for robust 3D spatial mapping and query alignment.",
+      desc: "Affine alignment, free-form deformation, 3D spatial localization of query sample, cross-platform validation using STARmap hippocampus.",
+      paperId: "natmethods-2025-spatialz",
+      paperTitle: "2025 · Bridging the dimensional gap from planar spatial transcriptomics to 3D cell atlases with SpatialZ"
+    },
     
 
 
