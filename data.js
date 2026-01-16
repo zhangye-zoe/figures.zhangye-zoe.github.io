@@ -794,6 +794,87 @@ window.figureList = [
       paperTitle: "2025 · Bridging the dimensional gap from planar spatial transcriptomics to 3D cell atlases with SpatialZ"
     },
     
+    
+    {
+      id: "speed-fig1",
+      file: "images/figures/SPEED/Fig1.png",
+      badge: "Fig 1",
+      venue: "Nature Computational Science",
+      topic: "Model overview",
+      tagPrimary: "Nature Computational Science",
+      tagSecondary: "Model schematic",
+      titleShort: "Fig 1 · SPEED workflow",
+      titleFull: "Nature Computational Science 2025 · SPEED model overview",
+      meta: "Nature Computational Science · Fig. 1 · Workflow of SPEED and deep matrix factorization for spatial epigenomic data denoising.",
+      desc: "DMF framework, atlas-level single-cell reference, aligned peak embeddings, and integrated epigenomic, spatial and image features.",
+      paperId: "natcompsci-2025-speed",
+      paperTitle: "2025 · Denoising spatial epigenomic data via deep matrix factorization"
+    },
+  
+    {
+      id: "speed-fig2",
+      file: "images/figures/SPEED/Fig2.png",
+      badge: "Fig 2",
+      venue: "Nature Computational Science",
+      topic: "Simulated denoising",
+      tagPrimary: "Nature Computational Science",
+      tagSecondary: "Simulated datasets",
+      titleShort: "Fig 2 · Simulated performance",
+      titleFull: "Nature Computational Science 2025 · Denoising performance in simulated spatial epigenomic datasets",
+      meta: "Nature Computational Science · Fig. 2 · AUROC and spatial domain recovery benchmarks on simulated SE data.",
+      desc: "Simulated SE spots from scATAC-seq, AUROC per spot/peak, ARI/NMI for spatial domains, and comparison to existing denoising methods.",
+      paperId: "natcompsci-2025-speed",
+      paperTitle: "2025 · Denoising spatial epigenomic data via deep matrix factorization"
+    },
+  
+    {
+      id: "speed-fig3",
+      file: "images/figures/SPEED/Fig3.png",
+      badge: "Fig 3",
+      venue: "Nature Computational Science",
+      topic: "Mouse embryo denoising",
+      tagPrimary: "Nature Computational Science",
+      tagSecondary: "Mouse embryo",
+      titleShort: "Fig 3 · Mouse embryo TSCAS",
+      titleFull: "Nature Computational Science 2025 · Denoising performance on mouse embryo spatial ATAC-seq",
+      meta: "Nature Computational Science · Fig. 3 · Recovery of tissue-specific chromatin accessible sites and enhancer/promoter signals.",
+      desc: "TSCAS spatial distributions before/after denoising, Moran’s I and FC, Jaccard index vs scATAC and bulk ATAC ground truth, and enhancer/promoter signal enrichment.",
+      paperId: "natcompsci-2025-speed",
+      paperTitle: "2025 · Denoising spatial epigenomic data via deep matrix factorization"
+    },
+  
+    {
+      id: "speed-fig4",
+      file: "images/figures/SPEED/Fig4.png",
+      badge: "Fig 4",
+      venue: "Nature Computational Science",
+      topic: "Spatial domains",
+      tagPrimary: "Nature Computational Science",
+      tagSecondary: "Domain identification",
+      titleShort: "Fig 4 · Epigenomic spatial domains",
+      titleFull: "Nature Computational Science 2025 · Identifying epigenomic spatial domains of mouse embryos",
+      meta: "Nature Computational Science · Fig. 4 · Spatial domain identification in mouse embryo and brain across SE technologies.",
+      desc: "Tissue domain maps, SPEED-derived spatial domains vs ground truth, ARI/NMI and DBI/SW metrics across methods, and applications to MISAR-seq and other SE datasets.",
+      paperId: "natcompsci-2025-speed",
+      paperTitle: "2025 · Denoising spatial epigenomic data via deep matrix factorization"
+    },
+  
+    {
+      id: "speed-fig5",
+      file: "images/figures/SPEED/Fig5.png",
+      badge: "Fig 5",
+      venue: "Nature Computational Science",
+      topic: "Spatial CUT&Tag",
+      tagPrimary: "Nature Computational Science",
+      tagSecondary: "Histone modification",
+      titleShort: "Fig 5 · Spatial CUT&Tag",
+      titleFull: "Nature Computational Science 2025 · Enhancing signals in spatial CUT&Tag data",
+      meta: "Nature Computational Science · Fig. 5 · Denoising and signal enhancement for spatial CUT&Tag histone mark data.",
+      desc: "Improved spatial patterns and domain readouts for histone modification signals in spatial CUT&Tag, benchmarking SPEED against other denoising approaches.",
+      paperId: "natcompsci-2025-speed",
+      paperTitle: "2025 · Denoising spatial epigenomic data via deep matrix factorization"
+    }
+    
 
 
 
