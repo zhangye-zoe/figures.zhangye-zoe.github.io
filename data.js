@@ -10,7 +10,7 @@ window.figureList = [
       badge: "Fig 1",
       venue: "Nature Biotechnology",
       topic: "Multi-omics modeling",
-      tagPrimary: "Nature Biotechnolo g y",
+      tagPrimary: "Nature Biotechnology",
       tagSecondary: "Model schematic",
       titleShort: "Fig 1 · Model overview",
       titleFull: "Nature Biotechnology 2023 · MultiVelo schematic ",
